@@ -1,8 +1,14 @@
 <template>
   <div id="app">
 
-    <router-link to="/">Main</router-link>
- <router-link to="/about">About</router-link>
+<router-link to="/">Login</router-link>
+<router-link to="/logout">Logout</router-link>
+<router-link to="/people">People</router-link>
+ <router-link to="/circles">Circles</router-link>
+  <router-link to="/feed">Feed</router-link>
+   <router-link to="/events">Events</router-link>
+    <router-link to="/profile">Profile</router-link>
+
 
     <router-view/>
   </div>
@@ -24,3 +30,12 @@ export default {
   margin-top: 60px;
 }
 </style>
+
+  <style lang="sass" scoped>
+  .router-link-exact-active
+    background-color: green
+    color: white
+
+
+
+  </style>
