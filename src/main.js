@@ -4,9 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
-var VueD3 = require('vue-d3')
 
+var VueD3 = require('vue-d3')
 Vue.config.productionTip = false
+
+
 
 Vue.use(VueD3)
 Vue.use(Vuex)
