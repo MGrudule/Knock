@@ -6,12 +6,12 @@ export const planetChartData = {
     datasets: [
       { // one line graph
         label: 'Number of Moons',
-        data: [0, 0, 1, 2, 67, 62, 27, 14],
+        data: [1, 1, 1, 1, 1, 1, 1, 1],
         backgroundColor: [
           'rgba(54,73,93,1)', // Blue
           'rgba(54,73,93,1)',
           'rgba(54,73,93,1)',
-          'rgba(54,73,93,1)',
+          'rgba(64,73,93,1)',
           'rgba(54,73,93,1)',
           'rgba(54,73,93,1)',
           'rgba(54,73,93,1)',

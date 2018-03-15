@@ -22,5 +22,6 @@ module.exports = {
   sass: {
     includePaths: ['./src/sass'],
     indentedSyntax: true
-  }
+  },
+   scss: { includePaths:  '../node_modules'},
 }

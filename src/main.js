@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuex from 'vuex'
+import Sierra from 'sierra-library'
 
 
 Vue.config.productionTip = false

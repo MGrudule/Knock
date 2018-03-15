@@ -37,7 +37,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass" scoped>
-
+h1
+  color: white
 
 
 

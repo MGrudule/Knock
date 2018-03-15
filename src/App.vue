@@ -1,13 +1,13 @@
 <template>
   <div id="app">
 
-<router-link to="/">Login</router-link>
-<router-link to="/logout">Logout</router-link>
-<router-link to="/people">People</router-link>
- <router-link to="/circles">Circles</router-link>
-  <router-link to="/feed">Feed</router-link>
-   <router-link to="/events">Events</router-link>
-    <router-link to="/profile">Profile</router-link>
+<router-link tag="button" class="button" to="/">Login</router-link>
+<router-link tag="button" class="button" to="/logout">Logout</router-link>
+<router-link tag="button" class="button" to="/people">People</router-link>
+ <router-link tag="button" class="button" to="/circles">Circles</router-link>
+  <router-link tag="button" class="button" to="/feed">Feed</router-link>
+   <router-link tag="button" class="button" to="/events">Events</router-link>
+    <router-link tag="button" class="button" to="/profile">Profile</router-link>
 
 
     <router-view/>
@@ -20,15 +20,20 @@ export default {
 }
 </script>
 
-<style>
-#app {
 
-}
-</style>
-<style lang="sass" scoped>
+
+
+<style lang="sass" >
+h1
+  color: white !important
+  font-size: 2em
+  padding: 1em
+.router-link
+
+  padding: 1em
 .router-link-exact-active
-    background-color: green
-    color: white
+    background-color: #1abc9c
+
 #app
   font-family: 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
