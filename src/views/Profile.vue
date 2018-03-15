@@ -17,7 +17,7 @@
                     <button class="button" type="submit">Update</button>
     </form>
     <div class="col-md-offset-2 col-md-8">
-<canvas id="planet-chart"></canvas>
+<canvas id="resource-chart"></canvas>
 </div>
   </div>
 
@@ -25,18 +25,18 @@
 
 <script>
 import Chart from 'chart.js';
-import planetChartData from '@/chart-data.js';
+import resourceChartData from '@/chart-data.js';
 export default {
   name: 'Profile',
   data () {
     return {
       msg: 'Profile page',
-      planetChartData,
-      user: { name: "Maija", email: "me@this.com"}
+      resourceChartData,
+      user: { name: "Maija", email: "me@example.com"}
     }
   },
   mounted() {
-  this.createChart('planet-chart', this.planetChartData);
+  this.createChart('resource-chart', this.resourceChartData);
 },
   methods: {
     createChart(chartId, chartData) {

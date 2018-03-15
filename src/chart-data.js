@@ -2,33 +2,35 @@ export const planetChartData = {
   type: 'doughnut',
   cutoutPercentage: 90,
   data: {
-    //labels: ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
+
     datasets: [
-      { // one line graph
-        label: 'Number of Moons',
-        data: [1, 1, 1, 1, 1, 1, 1, 1],
+      {
+        labels: [ 'Lift', 'Take Photos', 'Film', 'Big Data', 'Camera', '3d Printer', 'Rake'],
+        data: [1, 1, 1, 1, 1, 1, 1],
         backgroundColor: [
-          'rgba(54,73,93,1)', // Blue
-          'rgba(54,73,93,1)',
-          'rgba(54,73,93,1)',
+          'rgba(71, 183,132,1)', // Blue
+          'rgba(71, 183,132,1)',
+          'rgba(71, 183,132,1)',
+          'rgba(171, 83,132,1)',
           'rgba(64,73,93,1)',
-          'rgba(54,73,93,1)',
-          'rgba(54,73,93,1)',
-          'rgba(54,73,93,1)',
-          'rgba(54,73,93,1)'
+          'rgba(64,73,93,1)',
+          'rgba(64,73,93,1)',
+
         ],
 
-        borderWidth: 3
+        borderWidth: 1
       },
+
       { // another line graph
-        label: 'Planet Mass (x1,000 km)',
-        data: [4.8, 12.1, 12.7, 6.7, 139.8, 116.4, 50.7, 49.2],
+
+        labels: ["I can", "I'm interested in", "I have"],
+        data: [3, 1, 3],
         backgroundColor: [
-          'rgba(71, 183,132,.5)', // Green
+          'rgba(71, 183,132,.5)',
+          'rgba(171, 83,132,.5)',,
+          'rgba(64,73,93,0.5)',// Green
         ],
-        borderColor: [
-          '#47b784',
-        ],
+
         borderWidth: 3
       }
     ]
@@ -36,6 +38,18 @@ export const planetChartData = {
   options: {
     responsive: true,
     lineTension: 1,
+    legend: {
+            display: false,
+        },
+    tooltips: {
+        callbacks: {
+            label: function(tooltipItem, data) {
+                var dataset = data.datasets[tooltipItem.datasetIndex];
+                var index = tooltipItem.index;
+                return dataset.labels[index] ;
+            }
+        }
+      }
 
   }
 }
