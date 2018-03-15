@@ -21,11 +21,41 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Login',
   data () {
     return {
-      msg: 'Login page'
+      msg: 'Login page',
+      password: '',
+      email: '',
+      user_name: localStorage.getItem('user_name'),
+    }
+  },
+  methods : {
+    login(){
+
+
+      axios.post('https://peaceful-dusk-59248.herokuapp.com/api/login',
+        {email: this.email,
+         password: this.password})
+
+      .then(response => {
+        console.log(response)
+        localStorage.setItem('api_token',response.data.data.api_token);
+        localStorage.setItem('user_id',response.data.data.id);
+        localStorage.setItem('user_name',response.data.data.name);
+        localStorage.setItem('user_theme',response.data.data.theme);
+
+
+        this.$router.push(this.$route.query.redirect || '/profile');
+
+      })
+      .catch(error => {
+
+
+
+      });
     }
   }
 }
