@@ -1,7 +1,10 @@
 # knock
 
 > Resource sharing SPA for shared space communities using Vue.js & Laravel API backend 
-[Live Demo](https://knock.vps.codegorilla.nl/).
+
+* [Live Demo](https://knock.vps.codegorilla.nl/)
+* [Backend Git] (https://github.com/RJK-Engineering/KnockOnTheDoor) 
+* [Trello planning] (https://trello.com/b/BCwuDQAh) 
 
 ##  Setup
 
