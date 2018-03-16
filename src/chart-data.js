@@ -1,4 +1,4 @@
-export const planetChartData = {
+export const resourceChartData = {
   type: 'doughnut',
   cutoutPercentage: 90,
   data: {
@@ -54,4 +54,4 @@ export const planetChartData = {
   }
 }
 
-export default planetChartData;
+export default resourceChartData;
