@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <div class="row">
-    <div class="col-md-8">
+    <div class="col-sm-8">
 
-<div class="button-group">
-<router-link tag="button" class="button" to="/people">People</router-link>
- <router-link tag="button" class="button" to="/circles">Circles</router-link>
-  <router-link tag="button" class="button" to="/feed">Feed</router-link>
-   <router-link tag="button" class="button" to="/events">Events</router-link>
- </div>
+
+<router-link tag="button" class="button block-mobile" to="/people">People</router-link>
+ <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
+  <router-link tag="button" class="button block-mobile" to="/feed">Feed</router-link>
+   <router-link tag="button" class="button block-mobile" to="/events">Events</router-link>
+
 </div>
-<div class="col-md-3">
+<div class="col-sm-3">
  <div class="button-group">
-    <router-link tag="button" class="button" to="/profile">Profile</router-link>
+    <router-link tag="button" class="button button-white" to="/profile">Profile</router-link>
 </div>
 </div>
 </div>

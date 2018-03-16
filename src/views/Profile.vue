@@ -3,10 +3,10 @@
   <div class="page">
 
    <h1>{{ msg }} </h1>
-
+<p class="text-primary"> Hello,  {{name}}! </p>
 
    <form class="edit input-group col-md-offset-2 col-md-4" @submit.prevent="updateUser(user)">
-<h1> Hello,  {{name}}! Edit your profile </h1>
+<h1> Edit your profile </h1>
               <div class="input input-with-icon full-width ">
                   <input class="input" type="text" v-model="user.name">
                   <i class="input-icon fa fa-user"></i>
