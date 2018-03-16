@@ -1,15 +1,21 @@
 <template>
   <div id="app">
+    <div class="row">
+    <div class="col-md-8">
 
-<router-link tag="button" class="button" to="/">Login</router-link>
-<router-link tag="button" class="button" to="/logout">Logout</router-link>
+<div class="button-group">
 <router-link tag="button" class="button" to="/people">People</router-link>
  <router-link tag="button" class="button" to="/circles">Circles</router-link>
   <router-link tag="button" class="button" to="/feed">Feed</router-link>
    <router-link tag="button" class="button" to="/events">Events</router-link>
+ </div>
+</div>
+<div class="col-md-3">
+ <div class="button-group">
     <router-link tag="button" class="button" to="/profile">Profile</router-link>
-
-
+</div>
+</div>
+</div>
     <router-view/>
   </div>
 </template>

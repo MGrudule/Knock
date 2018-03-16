@@ -29,14 +29,14 @@ export default {
       msg: 'Login page',
       password: '',
       email: '',
-      user_name: localStorage.getItem('user_name'),
+      
     }
   },
   methods : {
     login(){
 
 
-      axios.post('https://peaceful-dusk-59248.herokuapp.com/api/login',
+      axios.post('http://82.72.124.186:82/api/login',
         {email: this.email,
          password: this.password})
 
@@ -44,8 +44,8 @@ export default {
         console.log(response)
         localStorage.setItem('api_token',response.data.data.api_token);
         localStorage.setItem('user_id',response.data.data.id);
-        localStorage.setItem('user_name',response.data.data.name);
-        localStorage.setItem('user_theme',response.data.data.theme);
+        localStorage.setItem('name',response.data.data.name);
+
 
 
         this.$router.push(this.$route.query.redirect || '/profile');
@@ -53,7 +53,7 @@ export default {
       })
       .catch(error => {
 
-
+console.log(error)
 
       });
     }
