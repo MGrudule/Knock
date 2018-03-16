@@ -29,14 +29,14 @@ export default {
       msg: 'Login page',
       password: '',
       email: '',
-      
+
     }
   },
   methods : {
     login(){
 
 
-      axios.post('http://82.72.124.186:82/api/login',
+      axios.post('https://knockonthedoor.vps.codegorilla.nl/api/login',
         {email: this.email,
          password: this.password})
 

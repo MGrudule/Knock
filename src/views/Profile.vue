@@ -3,10 +3,10 @@
   <div class="page">
 
    <h1>{{ msg }} </h1>
-<p class="text-primary"> Hello,  {{name}}! </p>
+   <p class="text-primary"> Hello,  {{user.name}}! </p>
 
    <form class="edit input-group col-md-offset-2 col-md-4" @submit.prevent="updateUser(user)">
-<h1> Edit your profile </h1>
+     <h1> Edit your profile </h1>
               <div class="input input-with-icon full-width ">
                   <input class="input" type="text" v-model="user.name">
                   <i class="input-icon fa fa-user"></i>
@@ -15,6 +15,11 @@
                     <input type="email" v-model="user.email">
                     <i class="input-icon fa fa-envelope"></i>
                </div>
+               <div class="input input-with-icon full-width ">
+                 <label class="label"> Tell a few lines about yourself </label>
+                     <input type="summary" v-model="user.summary">
+                     <i class="input-icon fa fa-pencil"></i>
+                </div>
 
                     <button class="button" type="submit">Update</button>
     </form>
@@ -28,6 +33,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import chart from "@/components/chart.vue"
 export default {
   name: 'Profile',
@@ -90,9 +96,24 @@ export default {
           }
 
       }},
-      user: { name: "Maija", email: "me@example.com"}
+      user: [],
     }
   },
+  mounted(){
+
+   axios.get("https://knockonthedoor.vps.codegorilla.nl/api/user",
+    {
+    headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+    })
+
+       .then((response)  =>  {
+         console.log(response)
+         this.user = response.data;
+
+       }, (error)  =>  {
+         this.loading = false;
+       })
+     },
 
   methods: {
 

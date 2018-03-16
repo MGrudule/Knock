@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div class="row">
+  <div id="app" class="container">
+    <div class="row hidden-sm">
     <div class="col-sm-8">
 
 
@@ -12,9 +12,10 @@
 </div>
 <div class="col-sm-3">
  <div class="button-group">
-    <router-link tag="button" class="button button-white" to="/profile">Profile</router-link>
+    <router-link tag="button" class="button button-white block-mobile" to="/profile">Profile</router-link>
 </div>
 </div>
+
 </div>
     <router-view/>
   </div>
@@ -30,6 +31,7 @@ export default {
 
 
 <style lang="sass" >
+
 h1
   color: white !important
   font-size: 2em
@@ -38,7 +40,8 @@ h1
 
   padding: 1em
 .router-link-exact-active
-    background-color: #1abc9c
+    background-color: #1abc9c !important
+    color: white !important
 
 #app
   font-family: 'Avenir', Helvetica, Arial, sans-serif
