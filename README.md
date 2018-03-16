@@ -1,21 +1,19 @@
 # knock
 
-> Resource sharing app for shared space communities
+> Resource sharing SPA for shared space communities using Vue.js & Laravel API backend 
+[Live Demo](https://knock.vps.codegorilla.nl/).
 
-## Build Setup
+##  Setup
 
-``` bash
-# install dependencies
-npm install
+Vue.js CLI installation with router & vuex
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Working features:
+* login (
+  email: t@e.st
+  password: secret )
+* get user profile from API (update function not activated)
+* add test resource to data list (chart update function not activated)
+* pagination/routes for other features
+* responsive design 
 
-# build for production with minification
-npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
