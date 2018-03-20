@@ -1,11 +1,11 @@
 <template>
 
   <div class="page">
+    <div class="row">
+      <h1>Hello, {{user.name}}! </h1>
 
-   <h1>{{ msg }} </h1>
-   <p class="text-primary"> Hello,  {{user.name}}! </p>
 
-   <form class="edit input-group col-md-offset-2 col-md-4" @submit.prevent="updateUser(user)">
+   <form class="edit input-group col-md-offset-2 col-md-3" @submit.prevent="updateUser(user)">
      <h1> Edit your profile </h1>
               <div class="input input-with-icon full-width ">
                   <input class="input" type="text" v-model="user.name">
@@ -20,17 +20,25 @@
                      <input type="summary" v-model="user.summary">
                      <i class="input-icon fa fa-pencil"></i>
                 </div>
+
                 <label class="label"> I can </label>
 <input-tag :tags.sync="tagsArray"></input-tag>
                     <button class="button" type="submit">Update</button>
     </form>
     <div class=" col-md-4">
 
-      <chart v-bind:resourceChartData="resourceChartData"> </chart>
-      <button class="button" v-on:click="addResource">Add resource</button>
+      <chart v-bind:data="data"> </chart>
+      <div class="row">
+<div v-for="(category, index) in categories" :key="category.id" class="checkbox col-md-offset-1 col-sm-4 col-xs-4 ">
+<input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="checkedNames" @click="somefunction(category.color)" >
+<label   v-bind:for="category.id"> {{category.name}} </label>
+</div>
+
+</div>
+
 </div>
   </div>
-
+</div>
 </template>
 
 <script>
@@ -42,13 +50,43 @@ export default {
   components: { 'chart' : chart },
   data () {
     return {
+      checkedNames: [],
       name: localStorage.getItem('name'),
       msg: 'Profile page',
       tagsArray:["photography", "music"],
-      resourceChartData: [],
+      data: [],
+      color: [],
       user: [],
-    }
-  },
+      categories: [{
+                    "id": 1,
+                    "name": "Art",
+                    "color": "yellow",
+                    },
+                    {
+                    "id": 2,
+                    "name": "Music",
+                    "color": "blue",
+
+                    },
+                    {
+                    "id": 3,
+                    "name": "Project managment",
+                    "color": "orange",
+                    },
+                    {
+                    "id": 4,
+                    "name": "Building ",
+                    "color": "black",
+
+                    },
+                    {
+                    "id": 5,
+                    "name": "Building ",
+                    "color": "green",
+
+                    }],
+                  }
+                },
   mounted(){
 
    axios.get("https://knockonthedoor.vps.codegorilla.nl/api/user",
@@ -66,11 +104,12 @@ export default {
      },
 
   methods: {
-
+      somefunction: function(item) {
+        this.data.push(100); console.log(item);
+      },
       addResource: function (event) {
-        console.log(this.resourceChartData.data.datasets[0].data)
-        this.resourceChartData.data.datasets[0].data.push(1);
 
+        this.data.push(100);
 
 
     }

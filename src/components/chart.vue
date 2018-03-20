@@ -1,6 +1,6 @@
 <template>
 <div>
-<h1>  Skills {{data}} </h1>
+<h1>  Interest circles </h1>
 <svg class="pie">
     <circle
       v-for="item in dataObjects"
@@ -18,31 +18,20 @@
 
 export default {
     name: 'Chart',
+    props:["data"],
     mounted() {
        setTimeout(() => { this.hasMounted = true }, 0);
-       setInterval(() => { this.shuffle(this.data) }, 1000)
+
     },
     data() {
       return {
-        data: [10,20,40,50],
+        circles: this.data.length,
         circleLength: 371.9451599121094,
         hasMounted: false
       }
     },
     methods: {
-      shuffle(data) {
-        let dataCopy = data.slice();
-        let temp;
-        let index;
-        let randomIndex;
-        for (index = 0; index < dataCopy.length; index++) {
-          randomIndex = Math.floor(Math.random() * index);
-          temp = dataCopy[index];
-          dataCopy[index] = dataCopy[randomIndex];
-          dataCopy[randomIndex] = temp;
-        }
-        this.data = dataCopy;
-      }
+
     },
     computed: {
         dataTotal() {
