@@ -21,12 +21,12 @@ export default {
     props:["data", "colorParts"],
 
     mounted() {
-       setTimeout(() => { this.hasMounted = true }, 0);
+        this.hasMounted = true ;
 
     },
     data() {
       return {
-        circles: this.data.length,
+
         circleLength: 371.9451599121094,
         hasMounted: false,
 
@@ -39,16 +39,13 @@ export default {
     },
     computed: {
       valueParts() {
-          return this.data.map (item => item = 100)
+          return this.data.map (item => item = 1)
       },
-        dataTotal() {
-          return this.valueParts.reduce((previous, current) => previous + current);
-        },
         dataObjects() {
 
           let startingPoint = 0;
-          return this.valueParts.map(item => {
-            let relativeSize = ((item / this.dataTotal) * this.circleLength);
+          return this.data.map(item => {
+            let relativeSize = ((item / this.data.length) * this.circleLength);
             let dataObject =  { relativeSize: this.hasMounted? relativeSize: 0 , offset: -startingPoint };
             startingPoint += relativeSize;
             return dataObject;
