@@ -3,12 +3,14 @@
   <div class="page">
 
    <h1>{{ msg }}</h1>
-   <div v-for="(user, index) in myJson" :key="user.id" class="checkbox col-md-offset-1 col-sm-4 col-xs-4 ">
-     {{user.category.length}} 
-     <chart v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)"> </chart>
-   {{user.name}} <hr>
-   <div v-for="item in user.category" :key="item.id" >
-     <div v-bind:style="{color: item.color}">  {{item.name}} </div>
+   <div v-for="(user, index) in myJson" :key="user.id" class="checkbox  col-sm-3 col-xs-12 ">
+
+     <chart v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
+<h2 class="text-center"> {{user.name}} </h2>
+    <hr>
+   <div v-for="item in user.resources" :key="item.id" >
+    <strong>  {{item.title}} </strong> :
+     <span v-for="name in item.name" > {{name}} </span>
 
    </div>
    </div>
@@ -24,8 +26,7 @@ export default {
   components: { 'chart' : chart },
   data () {
     return {
-      data: [1, 1, 1, 1],
-      colorParts: ["green", "red", "blue", "orange"],
+
 
       msg: 'People page',
 

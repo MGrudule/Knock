@@ -2,13 +2,16 @@
 <div>
 
 <svg class="pie">
+<g v-for="(item, index) in dataObjects" >
     <circle
-      v-for="(item, index) in dataObjects"
+
       v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset, stroke: colorParts[index]}"
       r="25%"
       cx="50%"
       cy="50%"
-    />
+    /> <title>{{ nameParts[index] }}</title> <text x="50%" y="50%" text-anchor="middle" fill="#51c5cf" dy=".3em" >{{ circleParts }} </text></circle>
+
+  </g>
   </svg>
 </div>
 
@@ -18,7 +21,7 @@
 
 export default {
     name: 'Chart',
-    props:["data", "colorParts"],
+    props:["data", "colorParts", "nameParts", "circleParts"],
 
     mounted() {
         this.hasMounted = true ;

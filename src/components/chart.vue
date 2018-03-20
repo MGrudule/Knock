@@ -3,12 +3,13 @@
 
 <svg class="pie">
     <circle
+
       v-for="(item, index) in dataObjects"
       v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset, stroke: colorParts[index]}"
       r="25%"
       cx="50%"
       cy="50%"
-    />
+    /> 
   </svg>
 </div>
 
