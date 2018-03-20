@@ -1,10 +1,10 @@
 <template>
 <div>
-<h1>  Interest circles </h1>
+<h1>  Interest circles {{ data.length }} </h1>
 <svg class="pie">
     <circle
-      v-for="item in dataObjects"
-      v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset}"
+      v-for="(item, index) in dataObjects"
+      v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset, stroke: colorParts[index]}"
       r="25%"
       cx="50%"
       cy="50%"
@@ -18,7 +18,8 @@
 
 export default {
     name: 'Chart',
-    props:["data"],
+    props:["data", "colorParts"],
+
     mounted() {
        setTimeout(() => { this.hasMounted = true }, 0);
 
@@ -27,23 +28,31 @@ export default {
       return {
         circles: this.data.length,
         circleLength: 371.9451599121094,
-        hasMounted: false
+        hasMounted: false,
+
+
       }
     },
     methods: {
 
+
     },
     computed: {
+      valueParts() {
+          return this.data.map (item => item = 100)
+      },
         dataTotal() {
-          return this.data.reduce((previous, current) => previous + current);
+          return this.valueParts.reduce((previous, current) => previous + current);
         },
         dataObjects() {
+
           let startingPoint = 0;
-          return this.data.map(item => {
+          return this.valueParts.map(item => {
             let relativeSize = ((item / this.dataTotal) * this.circleLength);
             let dataObject =  { relativeSize: this.hasMounted? relativeSize: 0 , offset: -startingPoint };
             startingPoint += relativeSize;
             return dataObject;
+
           })
         }
     }
@@ -56,10 +65,10 @@ export default {
   stroke-width: 32;
   transition: stroke-dasharray 0.3s ease-in-out,stroke-dashoffset 0.3s ease-in-out;
 }
-$colors: red, yellow, cyan, blue, green, black, white, gray, purple;
-@for $i from 1 through length($colors) {
-  .pie circle:nth-child(#{$i}) {
-    stroke: nth($colors, $i);
-  }
-}
+// $colors: red, yellow, cyan, blue, green, black, white, gray, purple;
+// @for $i from 1 through length($colors) {
+//   .pie circle:nth-child(#{$i}) {
+//     stroke: nth($colors, $i);
+//   }
+// }
 </style>
