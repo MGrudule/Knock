@@ -1,8 +1,9 @@
 <template>
 
     <div class="page">
+      <h1>Hello, {{user.name}}! </h1>
           <div class="row">
-            <h1>Hello, {{user.name}}! </h1>
+
 
 
                <form class="edit input-group col-md-offset-2 col-md-3" @submit.prevent="updateUser(user)">
@@ -27,19 +28,21 @@
                 </form>
 
 
-              <div class=" col-md-4">
-                <h1>  Interest circles {{ data.length }} </h1>
-                <chart v-bind:data="data"  v-bind:colorParts="colorParts"> </chart>
-                <div class="row">
-                      <div v-for="(category, index) in categories" :key="category.id" class="checkbox col-md-offset-1 col-sm-4 col-xs-4 ">
-                      <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="data" @click="somefunction(category.color)" >
-                      <label   v-bind:for="category.id"> {{category.name}} </label>
-                      </div>
+                <div class=" col-md-4">
+                  <h1>  Interest circles {{ data.length }} </h1>
+                  <chart v-bind:data="data"  v-bind:colorParts="colorParts"> </chart>
 
-                  </div>
+                  <div class="row">
+                        <div v-for="(category, index) in categories" :key="category.id" class="checkbox ">
+                        <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="data" @click="somefunction(category.color)" >
+                        <label   v-bind:for="category.id"> {{category.name}} </label>
+                        </div>
 
-          </div>
-        </div>
+                    </div>
+
+            </div>
+
+      </div>
   </div>
 </template>
 

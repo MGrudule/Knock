@@ -1,6 +1,12 @@
 <template>
 
   <div class="page">
+    <div v-if="loading" class='loading-spinner'>
+   <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
    <h1>{{ msg }}</h1>
    <div class="input input-with-icon ">
@@ -16,11 +22,17 @@
    <div v-for="(user, index) in filteredList" :key="user.id" class="checkbox list-item  col-md-3 card">
 
      <chart  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
-<h2 class="text-center"> {{user.name}} </h2>
+     <div class="text-center">
+     <span class="user-name" > {{user.name}} </span>
+     <span > {{user.summary}} </span>
+   </div>
     <hr>
-   <div v-for="item in user.resources" :key="item.id" >
-    <strong>  {{item.title}} </strong> :
-     <span v-for="name in item.name" > {{name}} </span>
+   <div v-for="item in user.resources" :key="item.id"  class="tags" >
+     <div class="tagname">
+       <strong>  {{item.title}} </strong> </div>
+
+
+     <span class="tag" v-for="name in item.name" > {{name}} </span>
 
    </div>
    </div>
@@ -41,7 +53,7 @@ export default {
 
 search: '',
       msg: 'People page',
-
+      loading: false,
       myJson: json,
 
     }
@@ -60,10 +72,7 @@ search: '',
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-.list-item {
-  display: inline-block;
-  margin-right: 10px;
-}
+
 .list-enter-active {
   transition: all 1s;
 }
@@ -86,6 +95,8 @@ search: '',
   padding-top: 12px;
 }
   .card {
+display: inline-block;
+  box-sizing: content-box;
    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
    padding: 1em;
    transition: .25s all ease-in-out;
