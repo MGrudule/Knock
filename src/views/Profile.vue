@@ -28,7 +28,7 @@
 
 
               <div class=" col-md-4">
-
+                <h1>  Interest circles {{ data.length }} </h1>
                 <chart v-bind:data="data"  v-bind:colorParts="colorParts"> </chart>
                 <div class="row">
                       <div v-for="(category, index) in categories" :key="category.id" class="checkbox col-md-offset-1 col-sm-4 col-xs-4 ">
