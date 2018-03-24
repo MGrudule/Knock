@@ -42,7 +42,7 @@
 
 
     <transition-group class="wrapper" name="list">
-         <div v-for="(user, index) in searchList" :key="user.id" class="checkbox list-item  col-md-3 card">
+         <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-3 card">
 
            <chart  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
                <div class="text-center">
@@ -55,7 +55,8 @@
                  <strong>  {{item.title}} </strong> </div>
                <span class="tag" v-for="name in item.name" > {{name}} </span>
              </div>
-         </div>
+           </div>
+
      </transition-group>
  </div>
 
@@ -92,6 +93,7 @@ export default {
     filteredList() {
       return this.myJson.filter(user => {
         return user.category.some((item) => {
+
           return item.name.toLowerCase().includes(this.checkedNames)
           })
         })
@@ -103,19 +105,14 @@ export default {
 
 <style lang="scss" scoped>
 
-.list-enter-active {
-  transition: all 1s;
-}
 .list-leave-active {
-  transition: all 0.1s;
+position: absolute;
+opacity: 0;
+
 }
 
-.list-enter .list-leave/* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  //transform: translateY(30px);
-}
 .list-move {
-  transition: transform 1s;
+  transition: all 0.5s;
 }
 
   .wrapper {
@@ -125,11 +122,12 @@ export default {
   padding-top: 12px;
 }
   .card {
-display: inline-block;
-  box-sizing: content-box;
+    display: inline-block;
+  box-sizing: border-box;
    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
    padding: 1em;
-   transition: .25s all ease-in-out;
+   transition: .25s background-color ease-in-out;
+   transition: .25s transform ease-in-out;
 
 
    &:hover  {
