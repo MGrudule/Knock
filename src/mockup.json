@@ -8,25 +8,11 @@
     "name": "Meejo"
   },
   "category": [
-    {
-      "id": 1,
-      "name": "Art",
-      "color": "#aebd38"
-    },
-    {
-      "id": 2,
-      "name": "Music",
-      "color": "#38aebd"
-    },
+
     {
       "id": 3,
       "name": "Business",
       "color": "#bd38ae"
-    },
-    {
-      "id": 4,
-      "name": "Building",
-      "color": "#ffee4c"
     }
   ],
   "resources": [
@@ -73,26 +59,13 @@
     "name": "Skajo"
   },
   "category": [
-    {
-      "id": 1,
-      "name": "Art",
-      "color": "#aebd38"
-    },
-    {
-      "id": 2,
-      "name": "Music",
-      "color": "#38aebd"
-    },
+
     {
       "id": 3,
       "name": "Business",
       "color": "#bd38ae"
     },
-    {
-      "id": 4,
-      "name": "Building",
-      "color": "#ffee4c"
-    },
+
     {
       "id": 5,
       "name": "Gardening",
@@ -147,11 +120,6 @@
     "name": "Meedoo"
   },
   "category": [
-    {
-      "id": 1,
-      "name": "Art",
-      "color": "#aebd38"
-    },
     {
       "id": 2,
       "name": "Music",
@@ -208,11 +176,7 @@
     "name": "Flipbug"
   },
   "category": [
-    {
-      "id": 1,
-      "name": "Art",
-      "color": "#aebd38"
-    },
+
     {
       "id": 2,
       "name": "Music",
@@ -2993,11 +2957,7 @@
     "name": "Skidoo"
   },
   "category": [
-    {
-      "id": 1,
-      "name": "Art",
-      "color": "#aebd38"
-    },
+
     {
       "id": 2,
       "name": "Music",
@@ -3058,11 +3018,7 @@
       "name": "Art",
       "color": "#aebd38"
     },
-    {
-      "id": 2,
-      "name": "Music",
-      "color": "#38aebd"
-    },
+    
     {
       "id": 3,
       "name": "Business",

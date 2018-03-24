@@ -10,33 +10,53 @@
 
    <h1>{{ msg }}</h1>
    <div class="input input-with-icon ">
-
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
+    </div>
+
+
+    <div class="row">
+
+      <div class="radio">
+        <input type="radio" id="0" value="" v-model="checkedNames" > <label v-bind:for="0"> all </label>
+      </div>
+        <div class="radio">
+          <input type="radio" id="1" value="art" v-model="checkedNames" > <label v-bind:for="1"> Art </label>
+        </div>
+        <div class="radio">
+          <input type="radio" id="2" value="gardening" v-model="checkedNames"> <label v-bind:for="2"> Gardening </label>
+        </div>
+        <div class="radio">
+          <input type="radio" id="3" value="business" v-model="checkedNames"> <label v-bind:for="3"> Business </label>
+        </div>
+        <div class="radio">
+          <input type="radio" id="4" value="music" v-model="checkedNames"> <label v-bind:for="4"> Music </label>
+        </div>
+        <div class="radio">
+          <input type="radio" id="5" value="building" v-model="checkedNames"> <label v-bind:for="5"> Building </label>
+        </div>
+
     </div>
 
   <hr>
 
 
-  <transition-group class="wrapper" name="list">
-   <div v-for="(user, index) in filteredList" :key="user.id" class="checkbox list-item  col-md-3 card">
+    <transition-group class="wrapper" name="list">
+         <div v-for="(user, index) in searchList" :key="user.id" class="checkbox list-item  col-md-3 card">
 
-     <chart  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
-     <div class="text-center">
-     <span class="user-name" > {{user.name}} </span>
-     <span > {{user.summary}} </span>
-   </div>
-    <hr>
-   <div v-for="item in user.resources" :key="item.id"  class="tags" >
-     <div class="tagname">
-       <strong>  {{item.title}} </strong> </div>
-
-
-     <span class="tag" v-for="name in item.name" > {{name}} </span>
-
-   </div>
-   </div>
-   </transition-group>
+           <chart  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
+               <div class="text-center">
+               <span class="user-name" > {{user.name}} </span>
+               <span > {{user.summary}} </span>
+             </div>
+          <hr>
+             <div v-for="item in user.resources" :key="item.id"  class="tags" >
+               <div class="tagname">
+                 <strong>  {{item.title}} </strong> </div>
+               <span class="tag" v-for="name in item.name" > {{name}} </span>
+             </div>
+         </div>
+     </transition-group>
  </div>
 
 
@@ -50,8 +70,8 @@ export default {
   components: { 'chart' : chart },
   data () {
     return {
-
-search: '',
+      checkedNames: [],
+      search: '',
       msg: 'People page',
       loading: false,
       myJson: json,
@@ -59,18 +79,28 @@ search: '',
     }
   },
   computed: {
+
+    searchList() {
+      return this.filteredList.filter(user => {
+        return user.resources.some((item) => {
+          return item.name.some((name) => {
+            return name.toLowerCase().includes(this.search.toLowerCase())
+          })
+        })
+      })
+    },
     filteredList() {
-   return this.myJson.filter(user => {
-     return user.resources.some((item) => {
-       return item.name.some((name) => {
-     return name.toLowerCase().includes(this.search.toLowerCase())})})
-   })
- }
+      return this.myJson.filter(user => {
+        return user.category.some((item) => {
+          return item.name.toLowerCase().includes(this.checkedNames)
+          })
+        })
+    },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style lang="scss" scoped>
 
 .list-enter-active {
