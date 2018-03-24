@@ -42,18 +42,18 @@
 
 
     <transition-group class="wrapper" name="list">
-         <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-3 card">
+         <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-4 col-sm-3 card">
 
            <chart  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
                <div class="text-center">
                <span class="user-name" > {{user.name}} </span>
                <span > {{user.summary}} </span>
              </div>
-          <hr>
-             <div v-for="item in user.resources" :key="item.id"  class="tags" >
-               <div class="tagname">
-                 <strong>  {{item.title}} </strong> </div>
-               <span class="tag" v-for="name in item.name" > {{name}} </span>
+             <hr>
+             <div v-for="item in user.resources" :key="item.id"  class="inline" v-if="item.name.length !== 0">
+
+               <resources :item="item"></resources>
+
              </div>
            </div>
 
@@ -66,9 +66,10 @@
 <script>
 import json from '../mockup.json'
 import chart from "@/components/chart_sm.vue"
+import resources from "@/components/resources.vue"
 export default {
   name: 'People',
-  components: { 'chart' : chart },
+  components: { 'chart' : chart , 'resources' : resources },
   data () {
     return {
       checkedNames: [],
@@ -77,8 +78,10 @@ export default {
       loading: false,
       myJson: json,
 
+
     }
   },
+
   computed: {
 
     searchList() {
@@ -99,6 +102,7 @@ export default {
         })
     },
   }
+
 }
 </script>
 
@@ -122,13 +126,15 @@ opacity: 0;
   padding-top: 12px;
 }
   .card {
+
+
     display: inline-block;
   box-sizing: border-box;
    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
    padding: 1em;
    transition: .25s background-color ease-in-out;
    transition: .25s transform ease-in-out;
-
+transform: scale(1);
 
    &:hover  {
      transform: scale(1.02);

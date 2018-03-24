@@ -1,7 +1,7 @@
 <template>
 <div>
 
-<svg class="pie">
+<svg class="pie" >
 <g v-for="(item, index) in dataObjects" >
     <circle
 
@@ -60,15 +60,17 @@ export default {
 </script>
 
 <style lang="scss">
+.pie {
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
 .pie circle {
   fill: none;
   stroke-width: 32;
   transition: stroke-dasharray 0.3s ease-in-out,stroke-dashoffset 0.3s ease-in-out;
 }
-// $colors: red, yellow, cyan, blue, green, black, white, gray, purple;
-// @for $i from 1 through length($colors) {
-//   .pie circle:nth-child(#{$i}) {
-//     stroke: nth($colors, $i);
-//   }
-// }
+
 </style>
