@@ -9,6 +9,7 @@
   </div>
 
    <h1>{{ msg }}</h1>
+  
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
@@ -72,6 +73,7 @@ export default {
   components: { 'chart' : chart , 'resources' : resources },
   data () {
     return {
+
       checkedNames: [],
       search: '',
       msg: 'People page',
