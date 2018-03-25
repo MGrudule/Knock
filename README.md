@@ -15,8 +15,10 @@ Vue.js CLI installation with router & vuex
   email: t@e.st
   password: secret )
 * get user profile from API (update function not activated)
-* add test resource to data list (chart update function not activated)
+* add resources & select interest categories for profile circle
 * pagination/routes for other features
 * responsive design 
+* people profile page display mockup data from .json file
+* search & filter feature
 
 
