@@ -3,13 +3,17 @@
 
 <svg class="pie" >
     <defs>
-        <pattern id="profile" patternUnits="userSpaceOnUse" width="100%" height="100%">
+        <pattern class="opacity-class" :id="'profile' + id" patternUnits="userSpaceOnUse" width="100%" height="100%">
             <image  :xlink:href="images.sample" x="100" y="20"
                 width="100" height="100" />
         </pattern>
 
     </defs>
-        <circle cx="50%" cy="50%" r="25%" fill="url(#profile)"></circle>
+
+
+
+        <circle cx="50%" cy="50%" r="25%" :fill="'url(#profile' + id +')'"></circle>
+
         <g v-for="(item, index) in dataObjects" >
 
           <circle
@@ -36,7 +40,7 @@
 
 export default {
     name: 'Chart',
-    props:["data", "colorParts", "nameParts", "circleParts"],
+    props:["data", "colorParts", "nameParts", "circleParts", "id"],
 
     mounted() {
         this.hasMounted = true ;
@@ -78,6 +82,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .pie {
   position: relative;
   left: 50%;

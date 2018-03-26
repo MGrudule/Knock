@@ -9,7 +9,7 @@
   </div>
 
    <h1>{{ msg }}</h1>
-  
+
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
@@ -45,7 +45,7 @@
     <transition-group class="wrapper" name="list">
          <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-4 col-sm-3 card">
 
-           <chart  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
+           <chart v-bind:id="user.id"  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
                <div class="text-center">
                <span class="user-name" > {{user.name}} </span>
                <span > {{user.summary}} </span>
