@@ -13,6 +13,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const loadMinified = require('./load-minified')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -78,6 +79,12 @@ const webpackConfig = merge(baseWebpackConfig, {
       serviceWorkerLoader: `<script>${loadMinified(path.join(__dirname,
       './service-worker-prod.js'))}</script>`
     }),
+    new PrerenderSpaPlugin(
+      // Absolute path to compiled SPA
+      path.join(__dirname, '.'),
+      // List of routes to prerender
+      [ '/', '/people']
+    ),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
