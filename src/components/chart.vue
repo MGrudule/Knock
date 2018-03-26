@@ -9,7 +9,7 @@
       r="25%"
       cx="50%"
       cy="50%"
-    /> 
+    />
   </svg>
 </div>
 
@@ -60,7 +60,7 @@ export default {
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .pie circle {
   fill: none;
   stroke-width: 32;
