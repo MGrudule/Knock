@@ -21,21 +21,11 @@
       <div class="radio">
         <input type="radio" id="0" value="" v-model="checkedNames" > <label v-bind:for="0"> all </label>
       </div>
-        <div class="radio">
-          <input type="radio" id="1" value="art" v-model="checkedNames" > <label v-bind:for="1"> Art </label>
+      <div  v-for="(category, index) in categories" :key="category.id" >
+        <div class="radio" :style="'color:'+category.color" >
+          <input type="radio" :id="category.id" :value="category.name" v-model="checkedNames" > <label :style="'border: 2px solid'+category.color" v-bind:for="category.id" style="font-weight:900; text-transform:uppercase;padding:0.2em"> {{category.name}} </label>
         </div>
-        <div class="radio">
-          <input type="radio" id="2" value="gardening" v-model="checkedNames"> <label v-bind:for="2"> Gardening </label>
-        </div>
-        <div class="radio">
-          <input type="radio" id="3" value="business" v-model="checkedNames"> <label v-bind:for="3"> Business </label>
-        </div>
-        <div class="radio">
-          <input type="radio" id="4" value="music" v-model="checkedNames"> <label v-bind:for="4"> Music </label>
-        </div>
-        <div class="radio">
-          <input type="radio" id="5" value="building" v-model="checkedNames"> <label v-bind:for="5"> Building </label>
-        </div>
+      </div>
 
     </div>
 
@@ -43,7 +33,7 @@
 
 
     <transition-group class="wrapper" name="list">
-         <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-4 col-sm-3 card">
+         <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-4 col-sm-6  card">
 
            <chart v-bind:id="user.id"  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
                <div class="text-center">
@@ -74,11 +64,39 @@ export default {
   data () {
     return {
 
-      checkedNames: [],
+      checkedNames: '',
       search: '',
       msg: 'People page',
       loading: false,
       myJson: json,
+      categories: [{
+                    "id": 1,
+                    "name": "Art",
+                    "color": "#aebd38",
+                    },
+                    {
+                    "id": 2,
+                    "name": "Music",
+                    "color": "#38aebd",
+
+                    },
+                    {
+                    "id": 3,
+                    "name": "Business",
+                    "color": "#bd38ae",
+                    },
+                    {
+                    "id": 4,
+                    "name": "Building",
+                    "color": "#ffee4c",
+
+                    },
+                    {
+                    "id": 5,
+                    "name": "Gardening",
+                    "color": "#38bd8a",
+
+                    }],
 
 
     }
@@ -99,7 +117,7 @@ export default {
       return this.myJson.filter(user => {
         return user.category.some((item) => {
 
-          return item.name.toLowerCase().includes(this.checkedNames)
+          return item.name.toLowerCase().includes(this.checkedNames.toLowerCase())
           })
         })
     },
