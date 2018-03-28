@@ -3,14 +3,14 @@
     <div class="row">
           <div class="col-sm-8">
             <router-link tag="button" class="button block-mobile" to="/people">People</router-link>
-            <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
             <router-link tag="button" class="button block-mobile" to="/feed">Feed</router-link>
-            <router-link tag="button" class="button block-mobile" to="/events">Events</router-link>
+            <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
+            <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
 
           </div>
           <div class="col-sm-3">
 
-            <router-link tag="button" class="button button-white block-mobile" to="/profile">Profile</router-link>
+            <router-link tag="button" class="button button-white block-mobile float-right" to="/profile">Profile</router-link>
 
           </div>
 
@@ -37,7 +37,9 @@ export default {
 </style>
 
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
+.float-right{
+  float:right;
+}
 
 </style>

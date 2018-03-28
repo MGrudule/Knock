@@ -66,7 +66,7 @@ export default {
 
       checkedNames: '',
       search: '',
-      msg: 'People page',
+      msg: 'People',
       loading: false,
       myJson: json,
       categories: [{

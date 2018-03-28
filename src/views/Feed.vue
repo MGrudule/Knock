@@ -33,7 +33,7 @@ export default {
       msg: 'Feed page',
       posts: [],
       search: '',
-      msg: 'People page',
+      msg: 'Post Feed',
       loading: false,
       myJson: json,
     }
