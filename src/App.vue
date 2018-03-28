@@ -37,7 +37,7 @@ export default {
 </style>
 
 
-<style lang="sass" >
+<style lang="sass" scoped>
 
 
 </style>

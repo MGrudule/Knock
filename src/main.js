@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 
 Vue.component('input-tag', InputTag);
 
-
+Vue.use(require('vue-moment'));
 Vue.use(Vuex)
 
 /* eslint-disable no-new */
