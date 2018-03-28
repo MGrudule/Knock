@@ -1,33 +1,40 @@
 <template>
 <div>
+    <svg class="pie"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" >
 
-<svg class="pie" >
-    <defs>
-        <pattern id="profile" patternUnits="userSpaceOnUse" width="100%" height="100%">
-            <image  :xlink:href="images.sample" x="100" y="20"
-                width="100" height="100" />
-        </pattern>
+            <defs>
+                <svg:pattern  :id="'profile' + id" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                    <image  :href="images.sample"
+                            x="100" y="20"
+                            width="100" height="100" />
+                </svg:pattern>
+            </defs>
 
-    </defs>
-        <circle cx="50%" cy="50%" r="25%" fill="url(#profile)"></circle>
-        <g v-for="(item, index) in dataObjects" >
 
-          <circle
-            class="circle"
-            v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset, stroke: colorParts[index]}"
-            r="25%"
-            cx="50%"
-            cy="50%"
+            <circle cx="50%" cy="50%" r="25%" :fill="'url(#profile' + id +')'"></circle>
 
-          />
-            <title>{{ nameParts[index] }}</title>
+            <g v-for="(item, index) in dataObjects" >
+              <circle
+                class="dash-circle"
+                v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset, stroke: colorParts[index]}"
+                r="25%"
+                cx="50%"
+                cy="50%"
 
-            <text class="company" x="50%" y="85%" text-anchor="middle" fill="#ffff" dy=".3em" >{{ circleParts }} </text>
+              />
+                  <title>{{ nameParts[index] }}</title>
 
-         </circle>
+                  <text class="company" x="50%" y="85%"
+                        text-anchor="middle" fill="#ffff" dy=".3em" >
+                        {{ circleParts }}
+                   </text>
 
-       </g>
-  </svg>
+             </circle>
+
+            </g>
+      </svg>
 </div>
 
 </template>
@@ -36,7 +43,7 @@
 
 export default {
     name: 'Chart',
-    props:["data", "colorParts", "nameParts", "circleParts"],
+    props:["data", "colorParts", "nameParts", "circleParts", "id"],
 
     mounted() {
         this.hasMounted = true ;
@@ -48,9 +55,8 @@ export default {
         circleLength: 371.9451599121094,
         hasMounted: false,
         images: {
-                  sample: require('@/assets/profile.svg')
+                  sample: require('@/assets/profile.png')
               },
-
 
       }
     },
@@ -77,7 +83,8 @@ export default {
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
 .pie {
   position: relative;
   left: 50%;
@@ -90,7 +97,8 @@ export default {
     font-size: 0.8em;
   }
 }
-.pie .circle {
+.pie .dash-circle {
+  background-color: orange;
   fill: none;
   stroke-width: 32;
   transition: stroke-dasharray 0.3s ease-in-out,stroke-dashoffset 0.3s ease-in-out;
