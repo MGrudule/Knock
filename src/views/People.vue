@@ -35,13 +35,13 @@
     <transition-group class="wrapper" name="list">
          <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-4 col-sm-6  card">
 
-           <chart v-bind:id="user.id"  v-bind:data="user.category.map(item => 1)"  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
+           <chart v-bind:id="user.id"  v-bind:data="user.categories.map(item => 1)"  v-bind:colorParts="user.categories.map(item => item.color)" v-bind:nameParts="user.categories.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
                <div class="text-center">
                <span class="user-name" > {{user.name}} </span>
                <span > {{user.summary}} </span>
              </div>
              <hr>
-             <div v-for="item in user.resources" :key="item.id"  class="inline" v-if="item.name.length !== 0">
+             <div v-for="item in user.resources" :key="item.id"  class="inline" v-if="item.names.length !== 0">
 
                <resources :item="item"></resources>
 
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import json from '../mockup.json'
 import chart from "@/components/chart_sm.vue"
 import resources from "@/components/resources.vue"
@@ -68,7 +69,7 @@ export default {
       search: '',
       msg: 'People',
       loading: false,
-      myJson: json,
+      myJson: [],
       categories: [{
                     "id": 1,
                     "name": "Art",
@@ -107,7 +108,7 @@ export default {
     searchList() {
       return this.filteredList.filter(user => {
         return user.resources.some((item) => {
-          return item.name.some((name) => {
+          return item.names.some((name) => {
             return name.toLowerCase().includes(this.search.toLowerCase())
           })
         })
@@ -115,13 +116,28 @@ export default {
     },
     filteredList() {
       return this.myJson.filter(user => {
-        return user.category.some((item) => {
+        return user.categories.some((item) => {
 
           return item.name.toLowerCase().includes(this.checkedNames.toLowerCase())
           })
         })
     },
-  }
+  },
+  mounted(){
+
+   axios.get("https://knockonthedoor.vps.codegorilla.nl/api/profiles",
+    {
+    headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+    })
+
+       .then((response)  =>  {
+         console.log(response)
+         this.myJson = response.data.data;
+
+       }, (error)  =>  {
+         this.loading = false;
+       })
+     },
 
 }
 </script>

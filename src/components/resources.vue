@@ -1,10 +1,10 @@
 <template>
 <div class="inline">
   <div class="toggle-item tags" v-show="toggled"  >
-  <span class="tag" v-for="name in item.name" > {{name}} </span>
+  <span class="tag" v-for="name in item.names" > {{name}} </span>
   </div>
 
-    <button class="button button-small" @mouseover="toggleItem"  @mouseleave="mouseOut"> {{item.title}} | {{item.name.length}} </button>
+    <button class="button button-small" @mouseover="toggleItem"  @mouseleave="mouseOut"> {{item.title}} | {{item.names.length}} </button>
 
 
 </div>

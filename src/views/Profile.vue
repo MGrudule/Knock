@@ -22,19 +22,24 @@
                                  <i class="input-icon fa fa-pencil"></i>
                             </div>
 
-                            <label class="label"> I can </label>
-                            <input-tag :tags.sync="tagsArray"></input-tag>
-                                <button class="button" type="submit">Update</button>
+
+                            <div v-for="resource in user.resources" :key="resource.id" >
+                            <label class="label"> {{resource.title}} </label>
+                            <input-tag :tags.sync="resource.names "></input-tag>
+
+
+                              </div>
+                              <button class="button" type="submit">Update</button>
                 </form>
 
 
                 <div class=" col-md-4">
-                  <h1>  Interest circles {{ data.length }} </h1>
-                  <chart v-bind:data="data"  v-bind:colorParts="colorParts"> </chart>
+                  <h1>  Interest circles {{ circleData.length }} </h1>
+                  <chart v-bind:data="circleData"  v-bind:colorParts="colorParts"> </chart>
 
                   <div class="row">
                         <div v-for="(category, index) in categories" :key="category.id" class="checkbox ">
-                        <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="data" @click="somefunction(category.color)" >
+                        <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="circleData" @click="somefunction(category.color)" >
                         <label   v-bind:for="category.id"> {{category.name}} </label>
                         </div>
 
@@ -59,7 +64,7 @@ export default {
       name: localStorage.getItem('name'),
       msg: 'Profile page',
       tagsArray:["photography", "music"],
-      data: [],
+      circleData: [],
       color: [],
       colorParts: [],
       user: [],
@@ -95,14 +100,17 @@ export default {
                 },
   mounted(){
 
-   axios.get("https://knockonthedoor.vps.codegorilla.nl/api/user",
+   axios.get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile",
     {
     headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
     })
 
        .then((response)  =>  {
          console.log(response)
-         this.user = response.data;
+         this.user = response.data.data;
+         this.circleData = this.user.categories.map(item => item.id)
+         this.colorParts = this.user.categories.map(item => item.color)
+
 
        }, (error)  =>  {
          this.loading = false;
