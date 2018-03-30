@@ -70,34 +70,7 @@ export default {
       msg: 'People',
       loading: false,
       myJson: [],
-      categories: [{
-                    "id": 1,
-                    "name": "Art",
-                    "color": "#aebd38",
-                    },
-                    {
-                    "id": 2,
-                    "name": "Music",
-                    "color": "#38aebd",
-
-                    },
-                    {
-                    "id": 3,
-                    "name": "Business",
-                    "color": "#bd38ae",
-                    },
-                    {
-                    "id": 4,
-                    "name": "Building",
-                    "color": "#ffee4c",
-
-                    },
-                    {
-                    "id": 5,
-                    "name": "Gardening",
-                    "color": "#38bd8a",
-
-                    }],
+      categories: [],
 
 
     }
@@ -125,7 +98,7 @@ export default {
   },
   mounted(){
 
-   axios.get("https://knockonthedoor.vps.codegorilla.nl/api/profiles",
+  { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/profiles",
     {
     headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
     })
@@ -136,8 +109,22 @@ export default {
 
        }, (error)  =>  {
          this.loading = false;
-       })
+       })}
+
+       { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",
+         {
+         headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+         })
+
+            .then((response)  =>  {
+              console.log(response)
+              this.categories = response.data.data;
+
+            }, (error)  =>  {
+              this.loading = false;
+            })}
      },
+
 
 }
 </script>
