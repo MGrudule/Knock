@@ -23,7 +23,7 @@
 
 <script>
 import axios from 'axios'
-import json from '../feed.json'
+//import json from '../feed.json'
 import message from "@/components/message.vue"
 export default {
   name: 'Feed',
@@ -35,22 +35,25 @@ export default {
       search: '',
       msg: 'Post Feed',
       loading: false,
-      myJson: json,
+      myJson: [],
     }
   },
   mounted(){
+       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
+        {
+        headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+        })
 
-   axios.get("https://jsonplaceholder.typicode.com/posts",
-    )
+           .then((response)  =>  {
 
-       .then((response)  =>  {
-         console.log(response)
-         this.posts = response.data;
+             this.myJson = response.data.data;
 
-       }, (error)  =>  {
-         this.loading = false;
-       })
-     },
+
+
+           }, (error)  =>  {
+             this.loading = false;
+           })
+         },
 }
 </script>
 

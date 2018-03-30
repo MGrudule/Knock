@@ -39,7 +39,7 @@
 
                   <div class="row">
                         <div v-for="(category, index) in categories" :key="category.id" class="checkbox ">
-                        <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="circleData" @click="somefunction(category.color)" >
+                        <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="circleData" @click="somefunction(category.id)" >
                         <label   v-bind:for="category.id"> {{category.name}} </label>
                         </div>
 
@@ -63,7 +63,6 @@ export default {
       checkedNames: [],
       name: localStorage.getItem('name'),
       msg: 'Profile page',
-      tagsArray:["photography", "music"],
       circleData: [],
       color: [],
       colorParts: [],
@@ -106,7 +105,7 @@ export default {
     })
 
        .then((response)  =>  {
-         console.log(response)
+         
          this.user = response.data.data;
          this.circleData = this.user.categories.map(item => item.id)
          this.colorParts = this.user.categories.map(item => item.color)
@@ -119,25 +118,9 @@ export default {
 
   methods: {
       somefunction: function(item) {
-        //this.data.push(100); console.log(item);
-        this.colorParts.push(item);
+
+        this.user.categories[item].color;
       },
-      addResource: function (event) {
-
-        //this.data.push(100);
-
-
-
-    }
     }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="sass" scoped>
-h1
-  color: white
-
-
-
-</style>

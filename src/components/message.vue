@@ -1,12 +1,12 @@
 <template>
   <div class=" list-item  col-md-4 col-sm-6  card">
     <div class="msg-footer">
-      <span class="box" v-for="item in message.category" v-bind:style="{ background: item.color}" ></span>
+      <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
     </div>
-    <div class="text-small"> {{message.user[0].name}}  <span class="float-right">{{ message.date | moment("from") }}</span></div>
-   <span class="text-big">{{ message.subject[0].name }}</span>
+    <div class="text-small"> {{message.user.name}}  <span class="float-right">{{ message.date.date | moment("from") }}</span></div>
+   <span class="text-big">{{ message.subject.name }}</span>
    <div class="msg-footer">
-     <span class="box" v-for="item in message.category" v-bind:style="{ background: item.color}" ></span>
+     <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
    </div>
    {{message.body}}
 
