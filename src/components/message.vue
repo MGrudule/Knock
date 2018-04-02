@@ -4,7 +4,7 @@
       <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
     </div>
     <div class="text-small"> {{message.user.name}}  <span class="float-right">{{ message.date.date | moment("from") }}</span></div>
-   <span class="text-big">{{ message.subject.name }}</span>
+   <span class="text-big">{{ message.subject.name }} </span>
    <div class="msg-footer">
      <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
    </div>
