@@ -1,6 +1,12 @@
 <template>
 
     <div class="page">
+      <div v-if="loading" class='loading-spinner'>
+     <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
       <h1>Hello, {{user.name}}! </h1>
           <div class="row">
 
@@ -66,6 +72,7 @@ export default {
       circleData: [],
       color: [],
       colorParts: [],
+      loading: false,
       user: [],
       categories: [{
                     "id": 1,
@@ -98,14 +105,15 @@ export default {
                   }
                 },
   mounted(){
-
+    this.loading = true;
    axios.get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile",
     {
     headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
     })
 
        .then((response)  =>  {
-         
+         this.loading = false;
+
          this.user = response.data.data;
          this.circleData = this.user.categories.map(item => item.id)
          this.colorParts = this.user.categories.map(item => item.color)

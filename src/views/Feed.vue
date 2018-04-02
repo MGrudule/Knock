@@ -1,6 +1,12 @@
 <template>
 
   <div class="page">
+    <div v-if="loading" class='loading-spinner'>
+   <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
    <h1>{{ msg }}</h1>
    <div class="row">
@@ -39,12 +45,14 @@ export default {
     }
   },
   mounted(){
+        this.loading = true;
        axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
         {
         headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
         })
 
            .then((response)  =>  {
+             this.loading = false;
 
              this.myJson = response.data.data;
 

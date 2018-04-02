@@ -98,13 +98,14 @@ export default {
   },
   mounted(){
 
-  { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/profiles",
+  { this.loading = true;
+    axios.get("https://knockonthedoor.vps.codegorilla.nl/api/profiles",
     {
     headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
     })
 
        .then((response)  =>  {
-         console.log(response)
+         this.loading = false;
          this.myJson = response.data.data;
 
        }, (error)  =>  {
