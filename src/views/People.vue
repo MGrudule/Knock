@@ -10,6 +10,7 @@
 
    <h1>{{ msg }}</h1>
 
+
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
@@ -30,24 +31,15 @@
     </div>
 
   <hr>
-
+ <button class="button" v-on:click='compactLayout = !compactLayout'>Open/Close</button>
 
     <transition-group class="wrapper" name="list">
-         <div v-for="(user, index) in searchList" :key="user.id" class=" list-item  col-md-4 col-sm-6  card">
-
-           <chart v-bind:id="user.id"  v-bind:data="user.categories.map(item => 1)"  v-bind:colorParts="user.categories.map(item => item.color)" v-bind:nameParts="user.categories.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
-               <div class="text-center">
-               <span class="user-name" > {{user.name}} </span>
-               <span > {{user.summary}} </span>
-             </div>
-             <hr>
-             <div v-for="item in user.resources" :key="item.id"  class="inline" v-if="item.names.length !== 0">
-
-               <resources :item="item"></resources>
-
-             </div>
-           </div>
-
+      <profileCompact v-for="(user, index) in searchList" v-bind:class="[ { 'col-md-4 col-sm-6 card': compactLayout }, 'list-item']"
+      v-bind:user="user"
+      v-bind:index="index"
+      v-bind:key="user.id"
+      v-bind:compactLayout="compactLayout">
+      </profileCompact>
      </transition-group>
  </div>
 
@@ -57,11 +49,12 @@
 <script>
 import axios from 'axios'
 import json from '../mockup.json'
-import chart from "@/components/chart_sm.vue"
-import resources from "@/components/resources.vue"
+
+
+import profileCompact from "@/components/profileCompact.vue"
 export default {
   name: 'People',
-  components: { 'chart' : chart , 'resources' : resources },
+  components: { 'profileCompact' : profileCompact},
   data () {
     return {
 
@@ -69,6 +62,7 @@ export default {
       search: '',
       msg: 'People',
       loading: false,
+      compactLayout: true,
       myJson: [],
       categories: [],
 
