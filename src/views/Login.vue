@@ -2,7 +2,7 @@
 
   <div class="page">
 
-   <h1>{{ msg }}</h1> 
+   <h1>{{ msg }}</h1>
    <form class="login input-group col-md-offset-4 col-md-4" @submit.prevent="login">
 
               <div class="input input-with-icon full-width ">
@@ -23,7 +23,7 @@
 <script>
 import axios from 'axios'
 export default {
-  props: ['loggedIn'],
+
   name: 'Login',
   data () {
     return {
@@ -46,9 +46,7 @@ export default {
         localStorage.setItem('api_token',response.data.data.api_token);
         localStorage.setItem('user_id',response.data.data.id);
         localStorage.setItem('name',response.data.data.name);
- this.$emit('loggedIn', 'true')
-
-this.loggedIn = true;
+ 
         this.$router.push(this.$route.query.redirect || '/profile');
 
       })

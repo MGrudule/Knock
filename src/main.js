@@ -12,12 +12,51 @@ Vue.config.productionTip = false
 Vue.component('input-tag', InputTag);
 
 Vue.use(require('vue-moment'));
-Vue.use(Vuex)
+Vue.use(Vuex);
+// This is store!!!.
+const state = {
+  navigation: {
+    show: true
+  }
+}
+
+// This is look like events.
+const mutations = {
+  SHOWNAV (state) {
+    state.navigation.show = true
+  },
+  HIDENAV (state) {
+    state.navigation.show = false
+  }
+};
+const store = new Vuex.Store({
+  state,
+  mutations
+});
+
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
-  template: '<App/>'
-})
+  template: '<App/>',
+  watch: {
+             $route: function() {
+
+              // Check if given route is true, if it is then hide Nav.
+              if (this.$route.name === "Login") {
+
+                  store.commit('HIDENAV');
+                } else  {
+                  store.commit('SHOWNAV');
+              }
+              }
+            },
+            computed: {
+              show () {
+                  return store.state.navigation.show
+              }
+             }
+             })

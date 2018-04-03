@@ -1,28 +1,34 @@
 <template>
   <div id="app" class="container">
-    <div class="row">
+    <div class="row" >
           <div class="col-sm-8">
-            <router-link tag="button" class="button block-mobile" to="/people">People</router-link>
-            <router-link tag="button" class="button block-mobile" to="/feed">Feed</router-link>
+
+            <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/people">People</router-link>
+            <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/feed">Feed</router-link>
             <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
             <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
 
           </div>
           <div class="col-sm-3">
 
-            <router-link tag="button" class="button button-white block-mobile float-right" to="/profile">Profile</router-link>
+            <router-link v-show="$store.state.navigation.show " tag="button" class="button button-white block-mobile float-right" to="/profile">Profile</router-link>
 
           </div>
 
       </div>
+
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+
+  name: 'App',
+
+
 }
+
 </script>
 
 <style>
