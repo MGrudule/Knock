@@ -19,11 +19,22 @@
         v-bind:message="message"
         v-bind:index="index"
         v-bind:key="message.id"
-        ></message>
+
+
+        > <button  slot="button"  class="button button-transparent" @click="showMessage(message.id, index)"> Open </button> </message>
 
 
       </transition-group>
+<modal v-if="showModalMsg" @close="showModalMsg = false" v-model="showMsgData"> <p slot="body"> hi {{showMsgData}} </p>
+  <form slot="footer" class="edit" @submit.prevent="postComment(comment)">
 
+  <div class="textarea">
+       <textarea required v-model="comment" type="text" placeholder="Post comment"> </textarea>
+
+     </div>
+     {{comment}}
+     <button class="button" type="submit">Submit</button>
+   </form></modal>
      </div>
 
 
@@ -76,6 +87,9 @@ export default {
   components: { 'message' : message, 'modal' : modal },
   data () {
     return {
+      comment: '',
+      showMsgData: [],
+      showModalMsg: false,
       maxCount: 250,
       remainingCount: 250,
       post_message: [],
@@ -110,51 +124,11 @@ export default {
 
             this.$router.push(this.$route.query.redirect || '/');
             }
-             
+
 
 
            })
 
-  //       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
-  //            {
-  //           headers: { Authorization: "Bearer " + localStorage.getItem('api_token'), 'Content-Type': 'application/json;charset=UTF-8',
-  //         "Access-Control-Allow-Origin": "*", 'Accept' : 'application/json' }
-  //       , validateStatus: function (status) {
-  //         console.log("Hello!");
-  //   console.log(status);
-  //   console.log("Hello WOrld!");
-  //   return true;
-  // }})
-  //         .then((response) => {
-  //
-  //           console.log('E', response.status);
-  //           return response
-  //             // Success
-  //         })
-  //         .catch((error) => {
-  //           //reject(error.response.data);
-  //
-  //           console.log('console', error.response);
-  //           console.log('console', error.request);
-  //           console.log('console', error.message);
-  //           console.log('json', JSON.stringify(error))
-  //              if (error.response) {
-  //                // The request was made and the server responded with a status code
-  //                // that falls out of the range of 2xx
-  //                console.log(error.response.data);
-  //                console.log(error.response.status);
-  //                console.log(error.response.headers);
-  //              } else if (error.request) {
-  //                // The request was made but no response was received
-  //                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-  //                // http.ClientRequest in node.js
-  //                console.log(error.request);
-  //              } else {
-  //                // Something happened in setting up the request that triggered an Error
-  //                console.log('Error', error.message);
-  //              }
-  //              console.log('config', error);
-  //            });
          },
 
   methods: {
@@ -184,7 +158,48 @@ export default {
       countdown: function() {
       this.remainingCount = this.maxCount - this.post_message.body.length;
       this.hasError = this.remainingCount < 0;
-    }
+    },
+
+      showMessage: function (index) {
+        
+
+
+       this.loading = true;
+       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages/" + index,
+       {
+         headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+       })
+
+       .then((response)  =>  {
+         this.loading = false;
+         this.showModalMsg = true;
+         this.showMsgData = response.data.data;
+
+
+
+
+       }, (error)  =>  {
+         this.loading = false;
+       })
+
+    },
+    postComment: function (comment) {
+
+
+    axios.post("https://knockonthedoor.vps.codegorilla.nl/api/comments/" + comment.id,
+  { message_id: this.$route.params.id,
+   content: comment.content},{
+  headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+  })
+
+    .then((response)  =>  {
+
+      this.loading = false;
+
+    }, (error)  =>  {
+      this.loading = false;
+    })
+  },
   }
 }
 </script>

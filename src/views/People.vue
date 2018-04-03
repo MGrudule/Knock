@@ -110,7 +110,7 @@ export default {
 
          this.$router.push(this.$route.query.redirect || '/');
          }
-         
+
        })}
 
        { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",
@@ -126,6 +126,7 @@ export default {
               this.loading = false;
             })}
      },
+    
 
 
 }

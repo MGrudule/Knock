@@ -13,6 +13,9 @@
       <div class=" tags"   >
 
       <span class="tag" v-for="item in message.tags" > {{item}} </span>
+      <slot name="button">
+        default body
+      </slot>
     </div>
 
 
