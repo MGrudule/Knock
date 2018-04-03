@@ -14,7 +14,7 @@
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
-    </div>
+    </div> {{searchList.length}}/{{myJson.length}}
 
 
     <div class="row">
@@ -53,6 +53,7 @@ import json from '../mockup.json'
 
 import profileCompact from "@/components/profileCompact.vue"
 export default {
+  props: ['loggedIn'],
   name: 'People',
   components: { 'profileCompact' : profileCompact},
   data () {
@@ -104,6 +105,12 @@ export default {
 
        }, (error)  =>  {
          this.loading = false;
+         if (error.response.status === 401) {
+
+
+         this.$router.push(this.$route.query.redirect || '/');
+         }
+         
        })}
 
        { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",

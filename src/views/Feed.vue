@@ -97,14 +97,66 @@ export default {
         })
 
            .then((response)  =>  {
+             console.log("response", response);
              this.loading = false;
              this.myJson = response.data.data;
 
 
            }, (error)  =>  {
-             this.loading = false;
+
+            this.loading = false;
+            if (error.response.status === 401) {
+
+
+            this.$router.push(this.$route.query.redirect || '/');
+            }
+             
+
+
            })
+
+  //       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
+  //            {
+  //           headers: { Authorization: "Bearer " + localStorage.getItem('api_token'), 'Content-Type': 'application/json;charset=UTF-8',
+  //         "Access-Control-Allow-Origin": "*", 'Accept' : 'application/json' }
+  //       , validateStatus: function (status) {
+  //         console.log("Hello!");
+  //   console.log(status);
+  //   console.log("Hello WOrld!");
+  //   return true;
+  // }})
+  //         .then((response) => {
+  //
+  //           console.log('E', response.status);
+  //           return response
+  //             // Success
+  //         })
+  //         .catch((error) => {
+  //           //reject(error.response.data);
+  //
+  //           console.log('console', error.response);
+  //           console.log('console', error.request);
+  //           console.log('console', error.message);
+  //           console.log('json', JSON.stringify(error))
+  //              if (error.response) {
+  //                // The request was made and the server responded with a status code
+  //                // that falls out of the range of 2xx
+  //                console.log(error.response.data);
+  //                console.log(error.response.status);
+  //                console.log(error.response.headers);
+  //              } else if (error.request) {
+  //                // The request was made but no response was received
+  //                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+  //                // http.ClientRequest in node.js
+  //                console.log(error.request);
+  //              } else {
+  //                // Something happened in setting up the request that triggered an Error
+  //                console.log('Error', error.message);
+  //              }
+  //              console.log('config', error);
+  //            });
          },
+
   methods: {
     postMessage: function (post_message) {
     this.loading = true;

@@ -121,6 +121,12 @@ export default {
 
        }, (error)  =>  {
          this.loading = false;
+         if (error.response.status === 401) {
+
+
+         this.$router.push(this.$route.query.redirect || '/');
+         }
+         
        })
      },
 
