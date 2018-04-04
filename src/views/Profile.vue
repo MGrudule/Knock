@@ -35,13 +35,15 @@
 
 
                               </div>
+
                               <button class="button" type="submit">Update</button>
                 </form>
 
 
                 <div class=" col-md-4">
+
                   <h1>  Interest circles {{ circleData.length }} </h1>
-                  <chart v-bind:data="circleData"  v-bind:colorParts="colorParts"> </chart>
+                  <chart v-bind:data="circleData"  v-bind:colorParts="colorParts" v-bind:image="image"> </chart>
 
                   <div class="row">
                         <div v-for="(category, index) in categories" :key="category.id" class="checkbox ">
@@ -50,7 +52,7 @@
                         </div>
 
                     </div>
-
+  <file-upload @uploaded-file="showImage"> </file-upload>
             </div>
 
       </div>
@@ -61,9 +63,10 @@
 
 import axios from 'axios'
 import chart from "@/components/chart.vue"
+import fileUpload from "@/components/fileUpload.vue"
 export default {
   name: 'Profile',
-  components: { 'chart' : chart },
+  components: { 'chart' : chart , 'file-upload' : fileUpload},
   data () {
     return {
       checkedNames: [],
@@ -74,6 +77,7 @@ export default {
       colorParts: [],
       loading: false,
       user: [],
+      image: "",
       categories: [{
                     "id": 1,
                     "name": "Art",
@@ -126,11 +130,14 @@ export default {
 
          this.$router.push(this.$route.query.redirect || '/');
          }
-         
+
        })
      },
 
   methods: {
+    showImage(value){
+      this.image = value;
+    },
       somefunction: function(item) {
 
         this.user.categories[item].color;

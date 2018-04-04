@@ -1,8 +1,29 @@
 <template>
 <div>
 
-<svg class="pie">
-    <circle
+<svg  class="pie"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" >
+
+      <defs>
+          <svg:pattern   id="profile" width="100%" height="100%">
+              <image   :href="image"
+
+                      width="120" height="130" preserveAspectRatio="xMinYMid slice" />
+          </svg:pattern>
+          <filter id="linear">
+    <feColorMatrix
+      type="matrix"
+      values="0 1 0 0 0
+              0 1 0 0 0
+              0 1 0 0 0
+              0 1 0 1 0 "/>
+  </filter>
+      </defs>
+
+
+      <circle cx="50%" cy="50%" r="28%" fill="url(#profile)" filter="url(#linear)"></circle>
+    <circle class="circle"
 
       v-for="(item, index) in dataObjects"
       v-bind:style="{strokeDasharray: `${item.relativeSize} ${circleLength}`, strokeDashoffset: item.offset, stroke: colorParts[index]}"
@@ -19,7 +40,7 @@
 
 export default {
     name: 'Chart',
-    props:["data", "colorParts"],
+    props:["data", "colorParts", 'image'],
 
     mounted() {
        setTimeout(() => { this.hasMounted = true }, 0);
@@ -61,7 +82,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pie circle {
+svg {
+  overflow: visible;
+}
+.pie .circle {
   fill: none;
   stroke-width: 32;
   transition: stroke-dasharray 0.3s ease-in-out,stroke-dashoffset 0.3s ease-in-out;
