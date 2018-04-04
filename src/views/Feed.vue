@@ -31,18 +31,50 @@
 
    <div class="row">
      <transition-group class="wrapper" name="list">
-       <message
+       <message  class=" list-item  col-md-4 col-sm-6  card"
         v-for="(message, index) in searchList"
         v-bind:message="message"
         v-bind:index="index"
         v-bind:key="message.id"
 
 
-        > <button  slot="button"  class="button button-transparent" @click="showMessage(message.id, index)"> Open </button> </message>
+        > <button  slot="button"  class="button button-transparent" @click="showMessage(message, index)"> Open </button> </message>
 
 
       </transition-group>
-<modal v-if="showModalMsg" @close="showModalMsg = false" v-model="showMsgData"> <p slot="body"> hi {{showMsgData}} </p>
+<modal v-if="showModalMsg" @close="showModalMsg = false" > <div slot="body"> <message
+
+ v-bind:message="messageModal"></message>
+ <br>
+<h5> comments </h5>
+                     <!-- <div class="comment list-item"  >
+
+                       <div class="header" >
+                         <strong>  {{showMsgData.user.name}} </strong>
+
+
+                       </div>
+
+                        <div v-html="showMsgData.comment"></div>
+
+                      </div> -->
+                      <transition-group name="list" tag="div" class="row">
+                    <div class=" comment list-item" v-for="posted_comment in showMsgComments" :key="posted_comment.id" >
+
+                      <div class="header" >
+                        <strong>  {{posted_comment.user.name}} </strong>
+                        {{ posted_comment.date.date | moment("from", "now") }}
+
+                      </div>
+
+                       <div v-html="posted_comment.comment"></div>
+
+                     </div>
+             </transition-group>
+
+
+
+  </div>
   <form slot="footer" class="edit" @submit.prevent="postComment(comment)">
 
   <div class="textarea">
@@ -105,7 +137,7 @@ export default {
   data () {
     return {
       comment: '',
-      showMsgData: [],
+      showMsgCOmments: [],
       showModalMsg: false,
       maxCount: 250,
       remainingCount: 250,
@@ -120,6 +152,7 @@ export default {
       categories: [],
       checkedNames: '',
       search: '',
+      messageModal:[],
 
     }
   },
@@ -213,20 +246,21 @@ export default {
       this.hasError = this.remainingCount < 0;
     },
 
-      showMessage: function (index) {
+      showMessage: function (message, index) {
 
-
+        this.messageModal = message;
 
        this.loading = true;
-       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages/" + index,
+       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages/" + message.id + "/comments",
        {
          headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
        })
 
        .then((response)  =>  {
+
          this.loading = false;
          this.showModalMsg = true;
-         this.showMsgData = response.data.data;
+         this.showMsgComments = response.data.data;
 
 
 
