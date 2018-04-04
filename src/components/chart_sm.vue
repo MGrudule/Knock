@@ -4,16 +4,24 @@
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" >
 
-            <defs>
-                <svg:pattern  :id="'profile' + id" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                    <image  :href="images.sample"
-                            x="100" y="20"
-                            width="100" height="100" />
-                </svg:pattern>
-            </defs>
+          <defs>
+
+              <filter id="linear">
+                <feColorMatrix
+                  type="matrix"
+                  values="0 1 0 0 0
+                          0 1 0 0 0
+                          0 1 0 0 0
+                          0 1 0 1 0 "/>
+              </filter>
+          </defs>
+
+            <image  ref="myImage" id="myImage" class="hei"
+                  :href="images.sample" filter="url(#linear)"
+                    x="33%" y="15%"
+                    width="32%" height="70%" preserveAspectRatio="xMinYMid slice" />
 
 
-            <circle cx="50%" cy="50%" r="25%" :fill="'url(#profile' + id +')'"></circle>
 
             <g v-for="(item, index) in dataObjects" >
               <circle

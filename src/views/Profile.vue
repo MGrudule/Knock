@@ -47,7 +47,7 @@
 
                   <div class="row">
                         <div v-for="(category, index) in categories" :key="category.id" class="checkbox ">
-                        <input  v-bind:style="{color: category.color}" type="checkbox" v-bind:id="category.id" v-bind:value="category.id" v-model="circleData" @click="somefunction(category.id)" >
+                        <input type="checkbox" v-bind:id="category.id" v-bind:value="category"   v-model="circleData" @click="somefunction(category.id)" >
                         <label   v-bind:for="category.id"> {{category.name}} </label>
                         </div>
 
@@ -74,43 +74,21 @@ export default {
       msg: 'Profile page',
       circleData: [],
       color: [],
-      colorParts: [],
+
       loading: false,
       user: [],
       image: "",
-      categories: [{
-                    "id": 1,
-                    "name": "Art",
-                    "color": "#aebd38",
-                    },
-                    {
-                    "id": 2,
-                    "name": "Music",
-                    "color": "#38aebd",
-
-                    },
-                    {
-                    "id": 3,
-                    "name": "Project managment",
-                    "color": "#bd38ae",
-                    },
-                    {
-                    "id": 4,
-                    "name": "Building ",
-                    "color": "#ffee4c",
-
-                    },
-                    {
-                    "id": 5,
-                    "name": "Gardening ",
-                    "color": "#38bd8a",
-
-                    }],
+      categories: [],
                   }
                 },
+    computed: {
+      colorParts(){
+      return  this.circleData.map(item => item.color)
+      }
+    },
   mounted(){
     this.loading = true;
-   axios.get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile",
+  { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile",
     {
     headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
     })
@@ -119,8 +97,9 @@ export default {
          this.loading = false;
 
          this.user = response.data.data;
-         this.circleData = this.user.categories.map(item => item.id)
-         this.colorParts = this.user.categories.map(item => item.color)
+         //this.circleData = this.user.categories.map(item => item.id)
+         this.circleData = this.user.categories
+
 
 
        }, (error)  =>  {
@@ -132,15 +111,30 @@ export default {
          }
 
        })
-     },
+     }
+     { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",
+       {
+       headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+       })
+
+          .then((response)  =>  {
+
+            this.categories = response.data.data;
+
+          }, (error)  =>  {
+            this.loading = false;
+          })}},
 
   methods: {
     showImage(value){
       this.image = value;
     },
-      somefunction: function(item) {
+      somefunction: function(checked) {
 
-        this.user.categories[item].color;
+        //this.categories[item].color;
+
+
+
       },
     }
 }

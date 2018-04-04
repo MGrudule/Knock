@@ -1,13 +1,13 @@
 <template>
     <div class="row">
         <div class="col-md-12">
-            
-            <div class="col-md-8">
+
+
                 <input type="file" v-on:change="onFileChange" class="form-control">
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-success btn-block" @click="upload">Upload</button>
-            </div>
+
+
+                <button class="button" @click="upload">Upload</button>
+
         </div>
     </div>
 </template>

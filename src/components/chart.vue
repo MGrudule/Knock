@@ -6,23 +6,22 @@
   xmlns:xlink="http://www.w3.org/1999/xlink" >
 
       <defs>
-          <svg:pattern   id="profile" width="100%" height="100%">
-              <image   :href="image"
 
-                      width="120" height="130" preserveAspectRatio="xMinYMid slice" />
-          </svg:pattern>
-          <filter id="linear">
-    <feColorMatrix
-      type="matrix"
-      values="0 1 0 0 0
-              0 1 0 0 0
-              0 1 0 0 0
-              0 1 0 1 0 "/>
-  </filter>
+            <filter id="linear">
+            <feColorMatrix
+              type="matrix"
+              values="0 1 0 0 0
+                      0 1 0 0 0
+                      0 1 0 0 0
+                      0 1 0 1 0 "/>
+              </filter>
       </defs>
 
+      <image  ref="myImage" id="myImage" class="rounded"
+            :href="image" filter="url(#linear)"
+            x="33%" y="15%"
+            width="32%" height="70%"  preserveAspectRatio="xMinYMid slice" />
 
-      <circle cx="50%" cy="50%" r="28%" fill="url(#profile)" filter="url(#linear)"></circle>
     <circle class="circle"
 
       v-for="(item, index) in dataObjects"
@@ -41,6 +40,7 @@
 export default {
     name: 'Chart',
     props:["data", "colorParts", 'image'],
+    imageData: [],
 
     mounted() {
        setTimeout(() => { this.hasMounted = true }, 0);
@@ -56,6 +56,7 @@ export default {
       }
     },
     methods: {
+
 
 
     },
@@ -82,6 +83,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.hei {
+  border-radius: 100%;
+  overflow: hidden;
+}
 svg {
   overflow: visible;
 }
