@@ -46,7 +46,7 @@ new Vue({
              $route: function() {
 
               // Check if given route is true, if it is then hide Nav.
-              if (this.$route.name === "/") {
+              if (this.$route.path === "/") {
 
                   store.commit('HIDENAV');
                 } else  {

@@ -7,13 +7,15 @@
 
               <div class="input input-with-icon full-width ">
 
-              <input   class="input" required v-model="email" type="text" placeholder="email" />
+              <input  v-bind:class="[{ 'error ': errorLogin }, 'input' ]"  c required v-model="email" type="text" placeholder="email" />
              <i class="input-icon fa fa-user"></i> </div>
 
              <div class="input input-with-icon full-width ">
-              <input class="input " required v-model="password" type="password" placeholder="Password"/>
+              <input   v-bind:class="[{ 'error ': errorLogin }, 'input' ]" required v-model="password" type="password" placeholder="Password"/>
               <i class="input-icon fa fa-key"></i>
+
             </div>
+<label  v-if="errorLogin" class="error"> E-mail or Password is incorrect <br> please try again </label>
               <button class="button" type="submit">Login</button>
             </form>
   </div>
@@ -27,6 +29,7 @@ export default {
   name: 'Login',
   data () {
     return {
+      errorLogin: false,
       msg: 'Login page',
       password: '',
       email: '',
@@ -42,17 +45,21 @@ export default {
          password: this.password})
 
       .then(response => {
-        console.log(response)
+
         localStorage.setItem('api_token',response.data.data.api_token);
         localStorage.setItem('user_id',response.data.data.id);
         localStorage.setItem('name',response.data.data.name);
- 
+
         this.$router.push(this.$route.query.redirect || '/profile');
 
       })
       .catch(error => {
 
-console.log(error)
+        if (error.response.status === 422) {
+
+
+        this.errorLogin = true;
+        }
 
       });
     }

@@ -119,14 +119,14 @@ export default {
          })
 
             .then((response)  =>  {
-              console.log(response)
+
               this.categories = response.data.data;
 
             }, (error)  =>  {
               this.loading = false;
             })}
      },
-    
+
 
 
 }
