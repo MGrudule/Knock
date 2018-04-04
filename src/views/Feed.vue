@@ -47,17 +47,7 @@
  v-bind:message="messageModal"></message>
  <br>
 <h5> comments </h5>
-                     <!-- <div class="comment list-item"  >
 
-                       <div class="header" >
-                         <strong>  {{showMsgData.user.name}} </strong>
-
-
-                       </div>
-
-                        <div v-html="showMsgData.comment"></div>
-
-                      </div> -->
                       <transition-group name="list" tag="div" class="row">
                     <div class=" comment list-item" v-for="posted_comment in showMsgComments" :key="posted_comment.id" >
 
@@ -75,7 +65,7 @@
 
 
   </div>
-  <form slot="footer" class="edit" @submit.prevent="postComment(comment)">
+  <form slot="footer" class="edit" @submit.prevent="postComment(messageModal.id, comment)" >
 
   <div class="textarea">
        <textarea required v-model="comment" type="text" placeholder="Post comment"> </textarea>
@@ -137,7 +127,7 @@ export default {
   data () {
     return {
       comment: '',
-      showMsgCOmments: [],
+      showMsgComments: [],
       showModalMsg: false,
       maxCount: 250,
       remainingCount: 250,
@@ -261,7 +251,7 @@ export default {
          this.loading = false;
          this.showModalMsg = true;
          this.showMsgComments = response.data.data;
-
+         this.comment = '';
 
 
 
@@ -270,20 +260,22 @@ export default {
        })
 
     },
-    postComment: function (comment) {
+    postComment: function (message, comment) {
 
 
-    axios.post("https://knockonthedoor.vps.codegorilla.nl/api/comments/" + comment.id,
-  { message_id: this.$route.params.id,
-   content: comment.content},{
+    axios.post("https://knockonthedoor.vps.codegorilla.nl/api/comments",
+  { message_id: message,
+   comment: this.comment},{
   headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
   })
 
     .then((response)  =>  {
 
       this.loading = false;
+      this.showMsgComments.push(response.data.data)
 
     }, (error)  =>  {
+      console.log(error)
       this.loading = false;
     })
   },
