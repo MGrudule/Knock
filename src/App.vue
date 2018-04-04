@@ -1,13 +1,18 @@
 <template>
   <div id="app" class="container">
+
     <div class="row" >
-          <div class="col-sm-8">
+          <div class="col-sm-4">
 
             <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/people">People</router-link>
             <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/feed">Feed</router-link>
             <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
             <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
 
+          </div>
+          <div class="col-sm-4">
+            <img v-if="$store.state.navigation.show " src="/static/img/logo.svg" height="50"/>
+            <img v-else src="/static/img/logo.svg" />
           </div>
           <div class="col-sm-3">
 
@@ -25,6 +30,15 @@
 export default {
 
   name: 'App',
+  data() {
+    return {
+
+      circleLength: 371.9451599121094,
+      hasMounted: false,
+
+
+    }
+  },
 
 
 }
