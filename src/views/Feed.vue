@@ -2,17 +2,21 @@
 
   <div class="page">
     <div v-if="loading" class='loading-spinner'>
-   <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-   <h1>{{ msg }}</h1>
-   <div class="input input-with-icon ">
-         <input type="search" v-model="search" placeholder="Search for resource.." >
-         <i class="input-icon fa fa-search"></i>
-    </div> results matching your selection {{searchList.length}}
+    <h1>{{ msg }}</h1>
+
+    <div class="input input-with-icon ">
+      <input type="search" v-model="search" placeholder="Search for resource.." >
+      <i class="input-icon fa fa-search"></i>
+    </div>
+
+
+    {{searchList.length}} results matching your selection
 
 
     <div class="row">
@@ -27,11 +31,11 @@
       </div>
     </div>
 
-   <button class="button button-transparent" id="show-modal" @click="showModal = true"> Post Message</button>
+    <button class="button button-transparent" id="show-modal" @click="showModal = true"> Post Message</button>
 
-   <div class="row">
-     <transition-group class="wrapper" name="list">
-       <message  class=" list-item  col-md-4 col-sm-6  card"
+    <div class="row">
+      <transition-group class="wrapper" name="list">
+        <message  class=" list-item  col-md-4 col-sm-6  card"
         v-for="(message, index) in searchList"
         v-bind:message="message"
         v-bind:index="index"
@@ -42,75 +46,93 @@
 
 
       </transition-group>
-<modal v-if="showModalMsg" @close="showModalMsg = false" > <div slot="body"> <message
+      <modal v-if="showModalMsg" @close="showModalMsg = false" >
+        <div slot="body">
 
- v-bind:message="messageModal"></message>
- <br>
-<h5> comments </h5>
+       <message v-bind:message="messageModal"></message>
+        <br>
+        <h5> comments </h5>
 
-                      <transition-group name="list" tag="div" class="row">
-                    <div class=" comment list-item" v-for="posted_comment in showMsgComments" :key="posted_comment.id" >
+        <transition-group name="list" tag="div" class="row">
 
-                      <div class="header" >
-                        <strong>  {{posted_comment.user.name}} </strong>
-                        {{ posted_comment.date.date | moment("from", "now") }}
+          <div class=" comment list-item" v-for="posted_comment in showMsgComments" :key="posted_comment.id" >
 
-                      </div>
+            <div class="header" >
+              <strong>  {{posted_comment.user.name}} </strong>
+              {{ posted_comment.date.date | moment("from", "now") }}
 
-                       <div v-html="posted_comment.comment"></div>
-
-                     </div>
-             </transition-group>
-
-
-
-  </div>
-  <form slot="footer" class="edit" @submit.prevent="postComment(messageModal.id, comment)" >
-
-  <div class="textarea">
-       <textarea required v-model="comment" type="text" placeholder="Post comment"> </textarea>
-
-     </div>
-     {{comment}}
-     <button class="button" type="submit">Submit</button>
-   </form></modal>
-     </div>
-
-
-     <modal v-if="showModal" @close="showModal = false" >
-
-       <h3 slot="header">Post request</h3>
-       <form  slot="body" class="edit" @submit.prevent="postMessage(post_message)">
-
-             <div class="radio">
-              <input id="subject1" name="subject" type="radio" value="1" required v-model="post_message.subject"/>
-              <label for="subject1" >Do you have?</label>
             </div>
 
-              <div class="radio">
-               <input id="subject2" name="subject" type="radio" value="2" required v-model="post_message.subject"/>
-               <label for="subject2" >Can you help?</label>
-             </div>
+            <div v-html="posted_comment.comment"></div>
 
-             <div class="radio">
-              <input id="subject3" name="subject" type="radio" value="3" required v-model="post_message.subject"/>
-              <label for="subject3" >Do you know?</label>
+          </div>
+        </transition-group>
+
+      </div>
+
+          <form slot="footer" class="edit" @submit.prevent="postComment(messageModal.id, comment)" >
+
+            <div class="textarea">
+              <textarea required v-model="comment" type="text" placeholder="Post comment"> </textarea>
+
             </div>
+            {{comment}}
+            <button class="button" type="submit">Submit</button>
+            </form>
 
-           <label class="label" for="message">Request</label>
+      </modal>
+    </div>
 
 
-         <div class="textarea">
-         <textarea  v-on:keyup="countdown" required v-model="post_message.body" type="text" placeholder="Your message"> </textarea>
+    <modal v-if="showModal" @close="showModal = false" >
+
+      <h3 slot="header">Post request</h3>
+      <form  slot="body" class="edit" @submit.prevent="postMessage(post_message)">
+
+        <div class="radio">
+          <input id="subject1" name="subject" type="radio" value="1" required v-model="post_message.subject"/>
+          <label for="subject1" >Do you have?</label>
+        </div>
+
+        <div class="radio">
+          <input id="subject2" name="subject" type="radio" value="2" required v-model="post_message.subject"/>
+          <label for="subject2" >Can you help?</label>
+        </div>
+
+        <div class="radio">
+          <input id="subject3" name="subject" type="radio" value="3" required v-model="post_message.subject"/>
+          <label for="subject3" >Do you know?</label>
+        </div>
+
+        <label class="label" for="message">Request</label>
+
+
+        <div class="textarea">
+          <textarea  v-on:keyup="countdown" required v-model="post_message.body" type="text" placeholder="Your message"> </textarea>
           <p class='fright text-small' v-bind:class="{'error': hasError }">{{remainingCount}}</p>
-         </div>
+        </div>
+        <div class="row">
+          <div v-for="(category_box, index) in categories_checkbox" :key="category_box.id" class="checkbox ">
+            <input   type="checkbox" v-bind:id="category_box.id + 'box'" v-bind:value="category_box.id" v-model="categoriesSelected"  >
+            <label   v-bind:for="category_box.id + 'box'"> {{category_box.name}} </label>
+
+          </div>
 
 
-       <button class="button" type="submit">Submit</button>
+        </div>
+
+        <label class="label"> tags</label>
+        <input-tag :tags.sync="tags"></input-tag>
+
+
+
+
+
+        <button class="button" type="submit">Submit</button>
 
       </form>
 
-     </modal>
+    </modal>
 
   </div>
 
@@ -141,13 +163,18 @@ export default {
       hasError: false,
       categories: [],
       checkedNames: '',
+      categories_checkbox: '',
+      categoriesSelected: [],
       search: '',
       messageModal:[],
+      tags:[],
 
     }
   },
   computed: {
+    categories() {
 
+    },
     searchList() {
       return this.filteredList.filter(object => {
         return object.body.toLowerCase().includes(this.search.toLowerCase()) ||  object.tags.some((item) => {
@@ -175,7 +202,7 @@ export default {
         })
 
            .then((response)  =>  {
-             console.log("response", response);
+
              this.loading = false;
              this.myJson = response.data.data;
 
@@ -200,6 +227,7 @@ export default {
                .then((response)  =>  {
 
                  this.categories = response.data.data;
+                 this.categories_checkbox = response.data.data;
 
                }, (error)  =>  {
                  this.loading = false;
@@ -211,15 +239,16 @@ export default {
     postMessage: function (post_message) {
     this.loading = true;
       axios.post("https://knockonthedoor.vps.codegorilla.nl/api/messages",
-          { data: { body: post_message.body,
-            subject: { id: post_message.subject },
-            user: { id: 2 } } },
+          {  body: post_message.body,
+            subject_id: post_message.subject,
+           categories: this.categoriesSelected,
+           tags: this.tags  },
           {
               headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
         })
 
         .then((response)  =>  {
-          console.log(response.data.data)
+
           this.loading = false;
            this.post_message = '';
            this.showModal = false;
@@ -264,10 +293,10 @@ export default {
 
 
     axios.post("https://knockonthedoor.vps.codegorilla.nl/api/comments",
-  { message_id: message,
-   comment: this.comment},{
-  headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-  })
+      { message_id: message,
+       comment: this.comment},{
+      headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+      })
 
     .then((response)  =>  {
 
@@ -275,7 +304,7 @@ export default {
       this.showMsgComments.push(response.data.data)
 
     }, (error)  =>  {
-      console.log(error)
+
       this.loading = false;
     })
   },
