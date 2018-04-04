@@ -14,7 +14,7 @@
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
-    </div> {{searchList.length}}/{{myJson.length}}
+    </div>  results matching your selection {{searchList.length}}
 
 
     <div class="row">
@@ -58,14 +58,13 @@ export default {
   components: { 'profileCompact' : profileCompact},
   data () {
     return {
-
-      checkedNames: '',
-      search: '',
       msg: 'People',
       loading: false,
       compactLayout: true,
       myJson: [],
       categories: [],
+      checkedNames: '',
+      search: '',
 
 
     }
@@ -75,7 +74,7 @@ export default {
 
     searchList() {
       return this.filteredList.filter(user => {
-        return user.resources.some((item) => {
+        return user.name.toLowerCase().includes(this.search.toLowerCase()) || user.resources.some((item) => {
           return item.names.some((name) => {
             return name.toLowerCase().includes(this.search.toLowerCase())
           })

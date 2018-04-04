@@ -9,13 +9,30 @@
   </div>
 
    <h1>{{ msg }}</h1>
+   <div class="input input-with-icon ">
+         <input type="search" v-model="search" placeholder="Search for resource.." >
+         <i class="input-icon fa fa-search"></i>
+    </div> results matching your selection {{searchList.length}}
+
+
+    <div class="row">
+
+      <div class="radio">
+        <input type="radio" id="0" value="" v-model="checkedNames" > <label v-bind:for="0"> all </label>
+      </div>
+      <div  v-for="(category, index) in categories" :key="category.id" >
+        <div class="radio" :style="'color:'+category.color" >
+          <input type="radio" :id="category.id" :value="category.name" v-model="checkedNames" > <label :style="'border: 2px solid'+category.color" v-bind:for="category.id" style="font-weight:900; text-transform:uppercase;padding:0.2em"> {{category.name}} </label>
+        </div>
+      </div>
+    </div>
 
    <button class="button button-transparent" id="show-modal" @click="showModal = true"> Post Message</button>
 
    <div class="row">
      <transition-group class="wrapper" name="list">
        <message
-        v-for="(message, index) in myJson"
+        v-for="(message, index) in searchList"
         v-bind:message="message"
         v-bind:index="index"
         v-bind:key="message.id"
@@ -95,17 +112,41 @@ export default {
       post_message: [],
       msg: 'Feed page',
       posts: [],
-      search: '',
       msg: 'Post Feed',
       loading: false,
       myJson: [],
       showModal: false,
-      hasError: false
+      hasError: false,
+      categories: [],
+      checkedNames: '',
+      search: '',
+
     }
+  },
+  computed: {
+
+    searchList() {
+      return this.filteredList.filter(object => {
+        return object.body.toLowerCase().includes(this.search.toLowerCase()) ||  object.tags.some((item) => {
+
+            return item.toLowerCase().includes(this.search.toLowerCase())
+
+        })
+
+      })
+    },
+    filteredList() {
+      return this.myJson.filter(object => {
+        return object.categories.some((item) => {
+
+          return item.name.toLowerCase().includes(this.checkedNames.toLowerCase())
+          })
+        })
+    },
   },
   mounted(){
         this.loading = true;
-        axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
+        {axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
         {
         headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
         })
@@ -127,7 +168,19 @@ export default {
 
 
 
-           })
+          })}
+          { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",
+            {
+            headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+            })
+
+               .then((response)  =>  {
+
+                 this.categories = response.data.data;
+
+               }, (error)  =>  {
+                 this.loading = false;
+               })}
 
          },
 
@@ -161,7 +214,7 @@ export default {
     },
 
       showMessage: function (index) {
-        
+
 
 
        this.loading = true;
