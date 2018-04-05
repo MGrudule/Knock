@@ -6,31 +6,28 @@
                 <input type="file" v-on:change="onFileChange" class="form-control">
 
 
-                <button class="button" @click="upload">Upload</button>
-
         </div>
     </div>
 </template>
 
-<style scoped>
-    img{
-        max-height: 36px;
-    }
-</style>
 <script>
 import axios from 'axios'
     export default{
         data(){
             return {
-                image: ''
+                image: '',
+
             }
         },
         methods: {
             onFileChange(e) {
+
                 let files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
                     return;
                 this.createImage(files[0]);
+
+                  this.upload(files[0]);
 
             },
             createImage(file) {
@@ -43,11 +40,26 @@ import axios from 'axios'
                 reader.readAsDataURL(file);
 
             },
-            upload(){
-                axios.post('/api/upload',{image: this.image}).then(response => {
+            upload(value){
 
-                });
+
+
+              const formData = new FormData();
+              formData.append( 'file', value);
+                  axios.post("https://knockonthedoor.vps.codegorilla.nl/api/profile/image",
+                      formData ,
+                      {
+                          headers: { Authorization: "Bearer " + localStorage.getItem('api_token'), 'Content-Type': 'multipart/form-data' }
+                    })
+
+                    .then((response)  =>  {
+
+                    }, (error)  =>  {
+
+                    })
             }
+
+
         }
     }
 </script>
