@@ -47,7 +47,7 @@
 
                   <div class="row">
                         <div v-for="(category, index) in categories" :key="category.id" class="checkbox ">
-                        <input type="checkbox" v-bind:id="category.id" v-bind:value="category"   v-model="circleData" @click="somefunction(category.id)" >
+                        <input type="checkbox" v-bind:id="category.id" v-bind:value="category"   v-model="circleData" >
                         <label   v-bind:for="category.id"> {{category.name}} </label>
                         </div>
 
@@ -73,8 +73,6 @@ export default {
       name: localStorage.getItem('name'),
       msg: 'Profile page',
       circleData: [],
-      color: [],
-
       loading: false,
       user: [],
       image: "",
@@ -84,7 +82,10 @@ export default {
     computed: {
       colorParts(){
       return  this.circleData.map(item => item.color)
-      }
+    },
+    checkedCategories(){
+      return this.circleData.map(item=> item.id)
+    }
     },
   mounted(){
     this.loading = true;
@@ -129,13 +130,27 @@ export default {
     showImage(value){
       this.image = value;
     },
-      somefunction: function(checked) {
+    updateUser() {
+    this.loading = true;
+      axios.put("https://knockonthedoor.vps.codegorilla.nl/api/profiles/" +this.user.id,
+          {  name: this.user.name,
+             email: this.user.email,
+             summary: this.user.summary,
+             categories: this.checkedCategories,
+             resources: this.user.resources  },
+          {
+              headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
+        })
 
-        //this.categories[item].color;
+        .then((response)  =>  {
+          this.loading = false;
 
+        }, (error)  =>  {
+          this.loading = false;
 
+        })
+      }
 
-      },
     }
 }
 </script>
