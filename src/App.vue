@@ -1,24 +1,34 @@
 <template>
   <div id="app" class="container">
 
-    <div class="row" >
-          <div class="col-sm-4">
 
-            <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/people">People</router-link>
-            <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/feed">Feed</router-link>
-            <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
-            <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
+    <div  class="" >
 
-          </div>
-          <div class="col-sm-4">
-            <img v-if="$store.state.navigation.show " src="/static/img/logo.svg" height="50"/>
-            <img v-else src="/static/img/logo.svg" />
-          </div>
-          <div class="col-sm-3">
+      <mq-layout mq="tablet">
+        <mobilemenu>
+        </mobilemenu>
+    </mq-layout>
+    <mq-layout class="row" mq="md+">
 
-            <router-link v-show="$store.state.navigation.show " tag="button" class="button button-white block-mobile float-right" to="/profile">Profile</router-link>
+      <div class="col-sm-4">
 
-          </div>
+        <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/people">People</router-link>
+        <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/feed">Feed</router-link>
+        <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
+        <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
+
+      </div>
+      <div class="col-sm-4">
+        <img v-if="$store.state.navigation.show " src="/static/img/logo.svg" height="50"/>
+        <img v-else src="/static/img/logo.svg" />
+      </div>
+      <div class="col-sm-3">
+
+        <router-link v-show="$store.state.navigation.show " tag="button" class="button button-white block-mobile float-right" to="/profile">Profile</router-link>
+
+      </div>
+    </mq-layout>
+
 
       </div>
 
@@ -27,9 +37,12 @@
 </template>
 
 <script>
+import mobilemenu from "@/components/mobilemenu.vue"
 export default {
 
+
   name: 'App',
+  components: {'mobilemenu': mobilemenu},
   data() {
     return {
 

@@ -6,8 +6,18 @@ import router from './router'
 import Vuex from 'vuex'
 import Sierra from 'sierra-library'
 import InputTag from 'vue-input-tag'
+import VueMq from 'vue-mq'
 
 Vue.config.productionTip = false
+Vue.use(VueMq, {
+  breakpoints: {
+    
+    tablet: 768,
+    md: 1250,
+    lg: Infinity,
+  }
+})
+
 
 Vue.component('input-tag', InputTag);
 

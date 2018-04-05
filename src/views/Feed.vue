@@ -172,9 +172,7 @@ export default {
     }
   },
   computed: {
-    categories() {
-
-    },
+    
     searchList() {
       return this.filteredList.filter(object => {
         return object.body.toLowerCase().includes(this.search.toLowerCase()) ||  object.tags.some((item) => {
