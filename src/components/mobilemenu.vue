@@ -4,8 +4,8 @@
 <img src="/static/img/logo.svg" height="50"/>
       <router-link v-show="$store.state.navigation.show " tag="li" class="button block-mobile" to="/people">People</router-link>
       <router-link v-show="$store.state.navigation.show " tag="li" class="button block-mobile" to="/feed">Feed</router-link>
-      <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
-      <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
+      <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
+      <!-- <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
 
 
 

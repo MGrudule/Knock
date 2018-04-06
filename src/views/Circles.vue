@@ -8,7 +8,10 @@
 
 </template>
 
+
+
 <script>
+import axios from 'axios'
 export default {
   name: 'Circles',
   data () {
@@ -20,7 +23,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="sass" scoped>
+<style lang="scss" scoped>
 
 
 
