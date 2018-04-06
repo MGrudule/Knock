@@ -17,7 +17,7 @@
           </defs>
 
             <image  ref="myImage" id="myImage" class="hei"
-                  :href="images.sample" filter="url(#linear)"
+                  :href="image" filter="url(#linear)"
                     x="33%" y="15%"
                     width="32%" height="70%" preserveAspectRatio="xMinYMid slice" />
 
@@ -51,7 +51,7 @@
 
 export default {
     name: 'Chart',
-    props:["data", "colorParts", "nameParts", "circleParts", "id"],
+    props:["data", "colorParts", "nameParts", "circleParts", "id", "image"],
 
     mounted() {
         this.hasMounted = true ;
@@ -62,9 +62,6 @@ export default {
 
         circleLength: 371.9451599121094,
         hasMounted: false,
-        images: {
-                  sample: require('@/assets/profile.png')
-              },
 
       }
     },

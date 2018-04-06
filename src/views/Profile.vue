@@ -98,6 +98,7 @@ export default {
          this.loading = false;
 
          this.user = response.data.data;
+         this.image = "https://knockonthedoor.vps.codegorilla.nl" + response.data.data.image;
          //this.circleData = this.user.categories.map(item => item.id)
          this.circleData = this.user.categories
 

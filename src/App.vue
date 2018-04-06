@@ -12,10 +12,10 @@
 
       <div class="col-sm-4">
 
-        <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/people">People</router-link>
-        <router-link v-show="$store.state.navigation.show " tag="button" class="button block-mobile" to="/feed">Feed</router-link>
-        <!-- <router-link tag="button" class="button block-mobile" to="/circles">Circles</router-link>
-        <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
+        <router-link v-show="$store.state.navigation.show" tag="button" class="button block-mobile" to="/people">People</router-link>
+        <router-link v-show="$store.state.navigation.show" tag="button" class="button block-mobile" to="/feed">Feed</router-link>
+        <router-link v-show="$store.state.navigation.show" tag="button" class="button block-mobile" to="/circles">Circles</router-link>
+        <!-- <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
 
       </div>
       <div class="col-sm-4">
@@ -46,7 +46,6 @@ export default {
   data() {
     return {
 
-      circleLength: 371.9451599121094,
       hasMounted: false,
 
 

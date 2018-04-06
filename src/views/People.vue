@@ -14,7 +14,7 @@
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
-    </div>  results matching your selection {{searchList.length}}
+    </div> {{searchList.length}} results matching your selection 
 
 
     <div class="row">
