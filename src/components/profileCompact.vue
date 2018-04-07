@@ -3,7 +3,7 @@
   <div  v-bind:class="{ 'row': !compactLayout }">
 <div v-bind:class="{ 'col-md-5 col-sm-4 ': !compactLayout }">
     <chart v-bind:id="user.id"  v-bind:data="user.categories.map(item => 1)" v-bind:image="'https://knockonthedoor.vps.codegorilla.nl' + user.image"  v-bind:colorParts="user.categories.map(item => item.color)" v-bind:nameParts="user.categories.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
-        <div  v-if="compactLayout" class="text-center">
+        <div  v-if="compactLayout" class="text-center"  style="height:6em">
         <span class="user-name" > {{user.name}} </span>
         <span > {{user.summary}} </span>
       </div>
@@ -14,7 +14,10 @@
           <span class="user-name" > {{user.name}} </span>
           <span > {{user.summary}} </span>
         </div>
-      <div v-for="item in user.resources" :key="item.id"  class="inline " v-if="item.names.length !== 0">
+        <div class="row aligner-space-around ">
+      <div v-for="item in user.resources" :key="item.id"  class="col-md-3" v-if="item.names.length !== 0" >
+
+
 
         <resources v-if="compactLayout" :item="item"></resources>
         <div v-else>
@@ -23,6 +26,8 @@
 
         </div>
 </div>
+</div>
+
       </div>
     </div>
 </template>

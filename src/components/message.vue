@@ -1,26 +1,27 @@
 <template>
   <div>
-    <div class="msg-footer">
+    <div class="">
       <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
     </div>
-    <div class="text-small"> {{message.user.name}}   <span class="float-right">{{ message.date.date | moment("from") }}</span></div>
-   <span class="text-big">{{ message.subject.name }} </span>
+    <div class=""> {{message.user.name}}   <span class="float-right">{{ message.date.date | moment("from") }}</span></div>
+   <span class="text-medium">{{ message.subject.name }} </span>
    <div class="msg-footer">
      <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
    </div>
    {{message.body}} <hr>
-   <slot name="button">
+<div class="msgFooter">
 
-   </slot>
-comments{{message.comment_count}}
       <div class=" tags"   >
 
       <span class="tag" v-for="item in message.tags" > {{item}} </span>
 
     </div>
+    <slot name="button" >
+
+    </slot>
 
 
-
+</div>
   </div>
 </template>
 

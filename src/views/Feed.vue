@@ -22,11 +22,12 @@
     <div class="row">
 
       <div class="radio">
-        <input type="radio" id="0" value="" v-model="checkedNames" > <label v-bind:for="0"> all </label>
+        <input type="radio" id="0" value="" v-model="selectedCategories" > <label v-bind:for="0"> all </label>
       </div>
       <div  v-for="(category, index) in categories" :key="category.id" >
         <div class="radio" :style="'color:'+category.color" >
-          <input type="radio" :id="category.id" :value="category.name" v-model="checkedNames" > <label :style="'border: 2px solid'+category.color" v-bind:for="category.id" style="font-weight:900; text-transform:uppercase;padding:0.2em"> {{category.name}} </label>
+          <input type="radio" :id="category.id" :value="category.name" v-model="selectedCategories" >
+          <label :style="'border: 2px solid'+category.color" v-bind:for="category.id" style="font-weight:900; text-transform:uppercase;padding:0.2em"> {{category.name}} </label>
         </div>
       </div>
     </div>
@@ -42,7 +43,7 @@
         v-bind:key="message.id"
 
 
-        > <button  slot="button"  class="button button-transparent" @click="showMessage(message, index)"> Open </button> </message>
+        >   <button  slot="button"  class="button button-outlined button-big button-icon" @click="showMessage(message, index)"> {{message.comment_count}} <i class="fa fa-comments" ></i>  | comment </button> </message>
 
 
       </transition-group>
@@ -162,7 +163,7 @@ export default {
       showModal: false,
       hasError: false,
       categories: [],
-      checkedNames: '',
+      selectedCategories: '',
       categories_checkbox: '',
       categoriesSelected: [],
       search: '',
@@ -172,7 +173,7 @@ export default {
     }
   },
   computed: {
-    
+
     searchList() {
       return this.filteredList.filter(object => {
         return object.body.toLowerCase().includes(this.search.toLowerCase()) ||  object.tags.some((item) => {
@@ -187,12 +188,12 @@ export default {
       return this.myJson.filter(object => {
         return object.categories.some((item) => {
 
-          return item.name.toLowerCase().includes(this.checkedNames.toLowerCase())
+          return item.name.toLowerCase().includes(this.selectedCategories.toLowerCase())
           })
         })
+      },
     },
-  },
-  mounted(){
+    mounted(){
         this.loading = true;
         {axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
         {

@@ -1,10 +1,16 @@
 <template>
-<div class="inline">
-  <div class="toggle-item tags" v-show="toggled"  >
-  <span class="tag" v-for="name in item.names" > {{name}} </span>
-  </div>
+<div class="" @mouseover="toggleItem" @mouseleave="toggleFalse">
 
-    <button class="button button-small" @mouseover="toggleItem"  @mouseleave="mouseOut"> {{item.title}} | {{item.names.length}} </button>
+  <button :title="item.title" class="button button-icon" ><i class="fa " v-bind:class="{'fa-wrench': item.id == 1,'fa-suitcase': item.id == 2, 'fa-lightbulb-o': item.id == 3, }"></i>   {{item.names.length}}  </button>
+ <transition name="fade">
+
+  <ul class="toggle-item tags" v-show="toggled"  >
+    {{item.title}}
+    <hr>
+  <li class="tag" v-for="name in item.names" > {{name}} </li>
+
+</ul>
+</transition>
 
 
 </div>
@@ -25,39 +31,25 @@ export default {
   },
   methods: {
   toggleItem: function() {
-    this.toggled = !this.toggled;
+
+    this.toggled = true;
 
   },
-  mouseOut:function(){
-                this.toggled = !this.toggled;
-                }
-  },
-    computed: {
+  toggleFalse: function() {
 
-    }
+    this.toggled = false;
+
   }
+
+  }
+}
 </script>
 
-<style lang="scss">
-.inline{
-  display:inline-block;
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
 }
-$color:  rgb(44, 62, 80);
-.toggle-item {
-  background: transparentize($color, 0.2);
-  color: black;
-  padding: 20px;
-  height: calc(100% - 100px);
-  width: calc(100% - 50% / 3);
-  position: absolute;
-  left: 40px;
- bottom: 50px;
-  z-index: 10;
-
-
-  border-radius: 2em;
-
-
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
-
 </style>

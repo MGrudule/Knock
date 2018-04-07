@@ -1,11 +1,16 @@
 <template>
     <div class="row">
-        <div class="col-md-12">
+
+        <div class="col-md-8">
 
 
                 <input type="file" v-on:change="onFileChange" class="form-control">
 
 
+
+        </div>
+        <div class="col-md-4">
+          {{uploadstatuss}}
         </div>
     </div>
 </template>
@@ -16,6 +21,7 @@ import axios from 'axios'
         data(){
             return {
                 image: '',
+                uploadstatuss: "",
 
             }
         },
@@ -53,8 +59,10 @@ import axios from 'axios'
                     })
 
                     .then((response)  =>  {
+                      this.uploadstatuss = "Your image has been updated"
 
                     }, (error)  =>  {
+                      this.uploadstatuss = "sorry, selected image is too big. Please select a smaller image."
 
                     })
             }
