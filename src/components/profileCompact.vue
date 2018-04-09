@@ -21,7 +21,7 @@
 
         <resources v-if="compactLayout" :item="item"></resources>
         <div v-else>
-        <strong>  {{item.title}} </strong>
+        <span class="skills-title">  {{item.title}} </span>
           <span class="tag" v-for="name in item.names" > {{name}} </span>
 
         </div>

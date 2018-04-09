@@ -19,7 +19,7 @@
     {{searchList.length}} results matching your selection
 
 
-    <div class="row">
+    <div class="row category-selector">
 
       <div class="radio">
         <input type="radio" id="0" value="" v-model="selectedCategories" > <label v-bind:for="0"> all </label>
@@ -27,7 +27,7 @@
       <div  v-for="(category, index) in categories" :key="category.id" >
         <div class="radio" :style="'color:'+category.color" >
           <input type="radio" :id="category.id" :value="category.name" v-model="selectedCategories" >
-          <label :style="'border: 2px solid'+category.color" v-bind:for="category.id" style="font-weight:900; text-transform:uppercase;padding:0.2em"> {{category.name}} </label>
+          <label :style="'background:'+category.color" v-bind:for="category.id" > {{category.name}} </label>
         </div>
       </div>
     </div>
@@ -43,22 +43,29 @@
         v-bind:key="message.id"
 
 
-        >   <button  slot="button"  class="button button-outlined button-big button-icon" @click="showMessage(message, index)"> {{message.comment_count}} <i class="fa fa-comments" ></i>  | comment </button> </message>
+        >
+             <button  slot="button"   class="button button-big button-icon"
+             @click="showMessage(message, index)">
+             <i class="fa fa-comments" ></i>
+             {{message.comment_count}}
+           </button>
+      </message>
 
 
       </transition-group>
+
       <modal v-if="showModalMsg" @close="showModalMsg = false" >
         <div slot="body">
 
-       <message v-bind:message="messageModal"></message>
-        <br>
-        <h5> comments </h5>
-
+          <message v-bind:message="messageModal"></message>
+          <br>
+          <h5 class="uppercase"> comments </h5>
+          <hr>
         <transition-group name="list" tag="div" class="row">
 
-          <div class=" comment list-item" v-for="posted_comment in showMsgComments" :key="posted_comment.id" >
+          <div class=" comment list-item col-md-12 form-field" v-for="posted_comment in showMsgComments" :key="posted_comment.id" >
 
-            <div class="header" >
+            <div class="" >
               <strong>  {{posted_comment.user.name}} </strong>
               {{ posted_comment.date.date | moment("from", "now") }}
 
@@ -71,14 +78,14 @@
 
       </div>
 
-          <form slot="footer" class="edit" @submit.prevent="postComment(messageModal.id, comment)" >
+          <form slot="footer" class="edit text-center" @submit.prevent="postComment(messageModal.id, comment)" >
 
-            <div class="textarea">
+            <div class="textarea form-field">
               <textarea required v-model="comment" type="text" placeholder="Post comment"> </textarea>
 
             </div>
-            {{comment}}
-            <button class="button" type="submit">Submit</button>
+
+            <button class="button" type="submit">Post Comment</button>
             </form>
 
       </modal>
@@ -87,49 +94,48 @@
 
     <modal v-if="showModal" @close="showModal = false" >
 
-      <h3 slot="header">Post request</h3>
       <form  slot="body" class="edit" @submit.prevent="postMessage(post_message)">
+            <h5 class="uppercase form-field" slot="header">category</h5>
 
-        <div class="radio">
-          <input id="subject1" name="subject" type="radio" value="1" required v-model="post_message.subject"/>
-          <label for="subject1" >Do you have?</label>
-        </div>
+            <div class="row form-field">
+              <div v-for="(category_box, index) in categories_checkbox" :key="category_box.id" class="checkbox ">
+                <input   type="checkbox" v-bind:id="category_box.id + 'box'" v-bind:value="category_box.id" v-model="categoriesSelected"  >
+                <label   v-bind:for="category_box.id + 'box'"> {{category_box.name}} </label>
+              </div>
+            </div>
 
-        <div class="radio">
-          <input id="subject2" name="subject" type="radio" value="2" required v-model="post_message.subject"/>
-          <label for="subject2" >Can you help?</label>
-        </div>
+            <h5 class="uppercase form-field" slot="header">Subject</h5>
 
-        <div class="radio">
-          <input id="subject3" name="subject" type="radio" value="3" required v-model="post_message.subject"/>
-          <label for="subject3" >Do you know?</label>
-        </div>
+            <div class="form-field">
+                  <div class="radio">
+                    <input id="subject1" name="subject" type="radio" value="1" required v-model="post_message.subject"/>
+                    <label for="subject1" >Do you have?</label>
+                  </div>
 
-        <label class="label" for="message">Request</label>
+                  <div class="radio">
+                    <input id="subject2" name="subject" type="radio" value="2" required v-model="post_message.subject"/>
+                    <label for="subject2" >Can you help?</label>
+                  </div>
 
+                  <div class="radio">
+                    <input id="subject3" name="subject" type="radio" value="3" required v-model="post_message.subject"/>
+                    <label for="subject3" >Do you know?</label>
+                  </div>
+          </div>
 
-        <div class="textarea">
-          <textarea  v-on:keyup="countdown" required v-model="post_message.body" type="text" placeholder="Your message"> </textarea>
-          <p class='fright text-small' v-bind:class="{'error': hasError }">{{remainingCount}}</p>
-        </div>
-        <div class="row">
-          <div v-for="(category_box, index) in categories_checkbox" :key="category_box.id" class="checkbox ">
-            <input   type="checkbox" v-bind:id="category_box.id + 'box'" v-bind:value="category_box.id" v-model="categoriesSelected"  >
-            <label   v-bind:for="category_box.id + 'box'"> {{category_box.name}} </label>
+          <div class="form-field">
+            <label class="label" for="message">Message</label>
+            <div class="textarea">
+              <textarea  v-on:keyup="countdown" required v-model="post_message.body" type="text" placeholder="Your message"> </textarea>
+              <p class='fright text-small' v-bind:class="{'error': hasError }">{{remainingCount}}</p>
+            </div>
 
           </div>
 
+            <label class="label"> Tags</label>
+            <input-tag :tags.sync="tags"></input-tag>
 
-        </div>
-
-        <label class="label"> tags</label>
-        <input-tag :tags.sync="tags"></input-tag>
-
-
-
-
-
-        <button class="button" type="submit">Submit</button>
+            <button class="button" type="submit">Submit</button>
 
       </form>
 
@@ -141,7 +147,6 @@
 
 <script>
 import axios from 'axios'
-//import json from '../feed.json'
 import message from "@/components/message.vue"
 import modal from "@/components/modal.vue"
 export default {

@@ -2,6 +2,10 @@
     <div class="">
       <div class="form-field">
         <span clas="uppercase "> UPLOAD A PROFILE PICTURE </span>
+
+      </div>
+      <div class="form-field">
+
         {{uploadstatuss}}
       </div>
         <div class="aligner-space-around form-field">
@@ -61,7 +65,7 @@ import axios from 'axios'
                       this.uploadstatuss = "Your image has been updated"
 
                     }, (error)  =>  {
-                      this.uploadstatuss = "sorry, selected image is too big. Please select a smaller image."
+                      this.uploadstatuss = "Sorry, the selected image is too big.  Please select a smaller image."
 
                     })
             }

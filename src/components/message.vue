@@ -8,18 +8,23 @@
    <div class="msg-footer">
      <span class="box" v-for="item in message.categories" v-bind:style="{ background: item.color}" ></span>
    </div>
-   {{message.body}} <hr>
-<div class="msgFooter">
+   <div class="msg-body">
+   {{message.body}}
+  </div>
 
-      <div class=" tags"   >
+<div class="msgFooter  row " >
+
+      <div class=" tags col-md-12 "   >
 
       <span class="tag" v-for="item in message.tags" > {{item}} </span>
 
     </div>
+<div class="col-xs-12 content-end">
     <slot name="button" >
 
     </slot>
 
+</div>
 
 </div>
   </div>
@@ -58,21 +63,9 @@ export default {
   .card {
 
 
-    display: inline-block;
-  box-sizing: border-box;
-   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-   padding: 1em;
-   transition: .25s background-color ease-in-out;
-   transition: .25s transform ease-in-out;
-transform: scale(1);
-
-   &:hover  {
-     transform: scale(1.02);
-     background-color: rgba(255, 255, 255,0.1);
-
-
-   }
-
+ .msg-body {
+   min-height: 6em;
+ }
 
  }
 

@@ -12,14 +12,15 @@
 
           <div class="row text-center aligner-center-horitzontal">
 
-              <div class=" col-sm-8 uppercase">
+              <div class=" col-sm-9 uppercase">
               <h1> Edit your profile </h1>
               </div>
 
 
-              <div class="  col-sm-8 ">
+              <div class="  col-sm-9 ">
                   <chart class="form-field" v-bind:data="circleData"  v-bind:colorParts="colorParts" v-bind:image="image"> </chart>
                   <div class="text-center  form-field">
+                    <hr>
                       <h5 class="uppercase"> How do you connect whit the community? </h5>
 
                   </div>
@@ -31,8 +32,8 @@
 
                   </div>
               </div>
-              <div class="form-field col-sm-8 ">
-
+              <div class=" col-sm-9 ">
+<hr>
                 <file-upload  @uploaded-file="showImage"> </file-upload>
 
               </div>
@@ -40,7 +41,8 @@
 
 
 
-              <form class="edit  col-md-8" @submit.prevent="updateUser(user)">
+              <form class="edit  col-md-9" @submit.prevent="updateUser(user)">
+                <hr>
                 <div class="text-center  form-field">
                     <h5 class="uppercase"> Your details </h5>
 
@@ -61,8 +63,8 @@
                                  <input type="summary" v-model="user.summary">
                                  <i class="input-icon fa fa-pencil"></i>
                             </div>
-
-                            <div class="text-center  ">
+<hr>
+                            <div class="text-center form-field ">
                                 <h5 class="uppercase"> What can you share whit the community? </h5>
                                 <span> Please enter your resources, skills and interests seperated by a comma. </span>
                             </div>

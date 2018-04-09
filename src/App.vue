@@ -2,35 +2,36 @@
   <div id="app" class="container">
 
 
-    <div  class="" >
+    <nav>
 
       <mq-layout mq="tablet">
         <mobilemenu>
         </mobilemenu>
     </mq-layout>
-    <mq-layout class="row" mq="md+">
+    <mq-layout class="row aligner-space-around no-margin" mq="md+">
 
-      <div class="col-sm-4">
+      <div class="col-sm-5 no-margin">
 
-        <router-link v-show="$store.state.navigation.show" tag="button" class="button block-mobile" to="/people">People</router-link>
-        <router-link v-show="$store.state.navigation.show" tag="button" class="button block-mobile" to="/feed">Feed</router-link>
-        <router-link v-show="$store.state.navigation.show" tag="button" class="button block-mobile" to="/circles">Circles</router-link>
-        <!-- <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
+        <router-link v-show="$store.state.navigation.show" tag="button" class="button" to="/people">People</router-link>
+        <router-link v-show="$store.state.navigation.show" tag="button" class="button" to="/feed">Feed</router-link>
+        <!-- <router-link v-show="$store.state.navigation.show" tag="button" class="button" to="/circles">Circles</router-link> -->
+
 
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-2 aligner-space-around">
         <img v-if="$store.state.navigation.show " src="/static/img/logo.svg" height="50"/>
         <img v-else src="/static/img/logo.svg" />
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-5">
 
-        <router-link v-show="$store.state.navigation.show " tag="button" class="button button-white block-mobile float-right" to="/profile">Profile</router-link>
+        <router-link v-show="$store.state.navigation.show " tag="button" class="button button-outlined button-icon-only  float-right" to="/profile">
+          <i class="fa fa-user" aria-hidden="true"></i> Profile</router-link>
 
       </div>
     </mq-layout>
 
 
-      </div>
+  </nav>
 
     <router-view/>
   </div>

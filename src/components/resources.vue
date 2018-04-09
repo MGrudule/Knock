@@ -1,15 +1,19 @@
 <template>
 <div class="" @mouseover="toggleItem" @mouseleave="toggleFalse">
 
-  <button :title="item.title" class="button button-icon" ><i class="fa " v-bind:class="{'fa-wrench': item.id == 1,'fa-suitcase': item.id == 2, 'fa-lightbulb-o': item.id == 3, }"></i>   {{item.names.length}}  </button>
- <transition name="fade">
+  <button :title="item.title" class="button button-icon" >
+    <i class="fa " v-bind:class="{'fa-wrench': item.id == 1,'fa-suitcase': item.id == 2, 'fa-lightbulb-o': item.id == 3, }"></i>
+     {{item.names.length}}
+  </button>
 
-  <ul class="toggle-item tags" v-show="toggled"  >
-    {{item.title}}
-    <hr>
-  <li class="tag" v-for="name in item.names" > {{name}} </li>
+  <transition name="fade">
 
-</ul>
+    <ul class="toggle-item tags" v-show="toggled"  >
+      <span class="skills-title">  {{item.title}} </span>
+      
+    <li class="tag" v-for="name in item.names" > {{name}} </li>
+
+    </ul>
 </transition>
 
 

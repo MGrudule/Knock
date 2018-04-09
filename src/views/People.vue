@@ -14,17 +14,18 @@
    <div class="input input-with-icon ">
          <input type="search" v-model="search" placeholder="Search for resource.." >
          <i class="input-icon fa fa-search"></i>
-    </div> {{searchList.length}} results matching your selection 
+    </div> {{searchList.length}} results matching your selection
 
 
-    <div class="row">
+    <div class="row category-selector">
 
       <div class="radio">
         <input type="radio" id="0" value="" v-model="checkedNames" > <label v-bind:for="0"> all </label>
       </div>
       <div  v-for="(category, index) in categories" :key="category.id" >
         <div class="radio" :style="'color:'+category.color" >
-          <input type="radio" :id="category.id" :value="category.name" v-model="checkedNames" > <label :style="'border: 2px solid'+category.color" v-bind:for="category.id" style="font-weight:900; text-transform:uppercase;padding:0.2em"> {{category.name}} </label>
+          <input type="radio" :id="category.id" :value="category.name" v-model="checkedNames" >
+          <label :style="'background:'+category.color" v-bind:for="category.id"> {{category.name}} </label>
         </div>
       </div>
 
@@ -150,26 +151,7 @@ opacity: 0;
   flex-wrap: wrap;
   padding-top: 12px;
 }
-  .card {
 
-
-    display: inline-block;
-  box-sizing: border-box;
-   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-   padding: 1em;
-   transition: .25s background-color ease-in-out;
-   transition: .25s transform ease-in-out;
-transform: scale(1);
-
-   &:hover  {
-     transform: scale(1.02);
-     background-color: rgba(255, 255, 255,0.1);
-
-
-   }
-
-
- }
 
 
 </style>
