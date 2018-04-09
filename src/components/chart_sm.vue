@@ -6,7 +6,7 @@
 
           <defs>
 
-              <filter id="linear">
+              <filter :id="'linear' + id">
                 <feColorMatrix
                   type="matrix"
                   values="0 1 0 0 0
@@ -16,8 +16,8 @@
               </filter>
           </defs>
 
-            <image  ref="myImage" id="myImage" class="hei"
-                  :href="image" filter="url(#linear)"
+            <image  ref="myImage" :id="'myImage' + id" class="hei"
+                  :href="image" :filter="'url(#linear'+id +')'"
                     x="33%" y="15%"
                     width="32%" height="70%" preserveAspectRatio="xMinYMid slice" />
 
@@ -34,10 +34,8 @@
               />
                   <title>{{ nameParts[index] }}</title>
 
-                  <text class="company" x="50%" y="85%"
-                        text-anchor="middle" fill="#ffff" dy=".3em" >
-                        {{ circleParts }}
-                   </text>
+                
+
 
              </circle>
 
@@ -109,6 +107,10 @@ export default {
   transition: stroke-dasharray 0.3s ease-in-out,stroke-dashoffset 0.3s ease-in-out;
 
 
+}
+.company {
+   white-space: pre-line;
+   max-width: 2em;
 }
 
 </style>

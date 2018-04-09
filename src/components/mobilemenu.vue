@@ -8,7 +8,7 @@
       <router-link v-show="$store.state.navigation.show " tag="li" class="button block-mobile" to="/feed">Feed</router-link>
 
       <!-- <router-link tag="button" class="button block-mobile" to="/events">Events</router-link> -->
-      <router-link v-show="$store.state.navigation.show " tag="button" class="button button-outlined button-icon-only  float-right" to="/profile">
+      <router-link v-show="$store.state.navigation.show " tag="button" class="button button-outlined button-icon-only block-mobile  float-right" to="/profile">
         <i class="fa fa-user" aria-hidden="true"></i> Profile</router-link>
 
 

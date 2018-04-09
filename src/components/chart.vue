@@ -17,7 +17,7 @@
               </filter>
       </defs>
 
-      <image  ref="myImage" id="myImage" class="rounded"
+      <image   class="rounded"
             :href="image" filter="url(#linear)"
             x="33%" y="15%"
             width="32%" height="70%"  preserveAspectRatio="xMinYMid slice" />
@@ -95,10 +95,5 @@ svg {
   stroke-width: 32;
   transition: stroke-dasharray 0.3s ease-in-out,stroke-dashoffset 0.3s ease-in-out;
 }
-// $colors: red, yellow, cyan, blue, green, black, white, gray, purple;
-// @for $i from 1 through length($colors) {
-//   .pie circle:nth-child(#{$i}) {
-//     stroke: nth($colors, $i);
-//   }
-// }
+
 </style>
