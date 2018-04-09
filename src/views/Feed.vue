@@ -8,31 +8,41 @@
       <span></span>
     </div>
 
-    <h1>{{ msg }}</h1>
-
-    <div class="input input-with-icon ">
-      <input type="search" v-model="search" placeholder="Search for resource.." >
-      <i class="input-icon fa fa-search"></i>
-    </div>
 
 
-    {{searchList.length}} results matching your selection
 
 
-    <div class="row category-selector">
+    <div class="row category-selector form-field">
 
-      <div class="radio">
+      <div class="col-md-2">
+      <div class="radio block-mobile">
         <input type="radio" id="0" value="" v-model="selectedCategories" > <label v-bind:for="0"> all </label>
       </div>
-      <div  v-for="(category, index) in categories" :key="category.id" >
+    </div>
+      <div  v-for="(category, index) in categories" :key="category.id" class="col-md-2" >
         <div class="radio" :style="'color:'+category.color" >
           <input type="radio" :id="category.id" :value="category.name" v-model="selectedCategories" >
           <label :style="'background:'+category.color" v-bind:for="category.id" > {{category.name}} </label>
         </div>
       </div>
+
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="input input-with-icon ">
+          <input type="search" v-model="search" placeholder="Search for resource.." >
+          <i class="input-icon fa fa-search"></i>
+        </div>
+
+        <span class="text-gray"> {{searchList.length}}  <i class=" fa fa-users"></i> </span>
+      </div>
+      <div class="col-sm-6 content-end">
+      <button class="button button-white button-icon" id="show-modal" @click="showModal = true"> <i class="fa fa-pencil" aria-hidden="true"></i> Post Message</button>
+      </div>
     </div>
 
-    <button class="button button-transparent" id="show-modal" @click="showModal = true"> Post Message</button>
+
 
     <div class="row">
       <transition-group class="wrapper" name="list">

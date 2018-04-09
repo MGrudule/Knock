@@ -24,7 +24,7 @@
       </div>
       <div class="col-sm-5">
 
-        <router-link v-show="$store.state.navigation.show " tag="button" class="button button-outlined button-icon-only  float-right" to="/profile">
+        <router-link v-show="$store.state.navigation.show " tag="button" class="button  button-icon-only  float-right" to="/profile">
           <i class="fa fa-user" aria-hidden="true"></i> Profile</router-link>
 
       </div>
