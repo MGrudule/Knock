@@ -1,17 +1,16 @@
 <template>
-    <div class="row">
+    <div class="">
+      <div class="form-field">
+        <span clas="uppercase "> UPLOAD A PROFILE PICTURE </span>
+        {{uploadstatuss}}
+      </div>
+        <div class="aligner-space-around form-field">
 
-        <div class="col-md-8">
-
-
-                <input type="file" v-on:change="onFileChange" class="form-control">
-
-
+               <input type="file" v-on:change="onFileChange" >
 
         </div>
-        <div class="col-md-4">
-          {{uploadstatuss}}
-        </div>
+
+
     </div>
 </template>
 
