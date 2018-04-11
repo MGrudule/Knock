@@ -15,7 +15,7 @@
 
            <div class="modal-body">
              <slot name="body">
-               
+
              </slot>
            </div>
 
@@ -33,16 +33,7 @@
 
 <script>
 export default {
-  name: 'modal',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js '
-    }
-  }
-}
+  name: "modal",
+
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-
-</style>

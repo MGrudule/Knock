@@ -8,10 +8,6 @@
       <span></span>
     </div>
 
-
-
-
-
     <div class="row category-selector form-field">
 
       <div class="col-md-2">
@@ -156,197 +152,213 @@
 </template>
 
 <script>
-import axios from 'axios'
-import message from "@/components/message.vue"
-import modal from "@/components/modal.vue"
+import axios from "axios";
+import message from "@/components/message.vue";
+import modal from "@/components/modal.vue";
 export default {
-  name: 'Feed',
-  components: { 'message' : message, 'modal' : modal },
-  data () {
+  name: "Feed",
+  components: { message: message, modal: modal },
+  data() {
     return {
-      comment: '',
+      comment: "",
       showMsgComments: [],
       showModalMsg: false,
       maxCount: 250,
       remainingCount: 250,
       post_message: [],
-      msg: 'Feed page',
+      msg: "Feed page",
       posts: [],
-      msg: 'Post Feed',
+      msg: "Post Feed",
       loading: false,
       myJson: [],
       showModal: false,
       hasError: false,
       categories: [],
-      selectedCategories: '',
-      categories_checkbox: '',
+      selectedCategories: "",
+      categories_checkbox: "",
       categoriesSelected: [],
-      search: '',
-      messageModal:[],
-      tags:[],
-
-    }
+      search: "",
+      messageModal: [],
+      tags: []
+    };
   },
   computed: {
-
     searchList() {
       return this.filteredList.filter(object => {
-        return object.body.toLowerCase().includes(this.search.toLowerCase()) ||  object.tags.some((item) => {
-
-            return item.toLowerCase().includes(this.search.toLowerCase())
-
-        })
-
-      })
+        return (
+          object.body.toLowerCase().includes(this.search.toLowerCase()) ||
+          object.tags.some(item => {
+            return item.toLowerCase().includes(this.search.toLowerCase());
+          })
+        );
+      });
     },
     filteredList() {
       return this.myJson.filter(object => {
-        return object.categories.some((item) => {
-
-          return item.name.toLowerCase().includes(this.selectedCategories.toLowerCase())
-          })
+        return object.categories.some(item => {
+          return item.name
+            .toLowerCase()
+            .includes(this.selectedCategories.toLowerCase());
+        });
+      });
+    }
+  },
+  mounted() {
+    this.loading = true;
+    {
+      axios
+        .get("https://knockonthedoor.vps.codegorilla.nl/api/messages", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("api_token")
+          }
         })
-      },
-    },
-    mounted(){
-        this.loading = true;
-        {axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages",
-        {
-        headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-        })
 
-           .then((response)  =>  {
-
-             this.loading = false;
-             this.myJson = response.data.data;
-
-
-           }, (error)  =>  {
-
+        .then(
+          response => {
             this.loading = false;
-            if (error.response.status === 401) {
+            this.myJson = response.data.data;
+          },
+          error => {
+            this.loading = false;
+            //if (error.response.status === 401) {
 
+            this.$router.push(this.$route.query.redirect || "/");
+            //}
+          }
+        );
+    }
+    {
+      axios
+        .get("https://knockonthedoor.vps.codegorilla.nl/api/categories", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("api_token")
+          }
+        })
 
-            this.$router.push(this.$route.query.redirect || '/');
-            }
-
-
-
-          })}
-          { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",
-            {
-            headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-            })
-
-               .then((response)  =>  {
-
-                 this.categories = response.data.data;
-                 this.categories_checkbox = response.data.data;
-
-               }, (error)  =>  {
-                 this.loading = false;
-               })}
-
-         },
+        .then(
+          response => {
+            this.categories = response.data.data;
+            this.categories_checkbox = response.data.data;
+          },
+          error => {
+            this.loading = false;
+          }
+        );
+    }
+  },
 
   methods: {
-    postMessage: function (post_message) {
-    this.loading = true;
-      axios.post("https://knockonthedoor.vps.codegorilla.nl/api/messages",
-          {  body: post_message.body,
-            subject_id: post_message.subject,
-           categories: this.categoriesSelected,
-           tags: this.tags  },
+    postMessage: function(post_message) {
+      this.loading = true;
+      axios
+        .post(
+          "https://knockonthedoor.vps.codegorilla.nl/api/messages",
           {
-              headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-        })
+            body: post_message.body,
+            subject_id: post_message.subject,
+            categories: this.categoriesSelected,
+            tags: this.tags
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("api_token")
+            }
+          }
+        )
 
-        .then((response)  =>  {
+        .then(
+          response => {
+            this.loading = false;
+            this.post_message = "";
+            this.showModal = false;
+            this.maxCount = 250;
+            this.remainingCount = 250;
 
-          this.loading = false;
-           this.post_message = '';
-           this.showModal = false;
-           this.maxCount = 250;
-           this.remainingCount = 250;
-
-          this.myJson.unshift(response.data.data)
-        }, (error)  =>  {
-          this.loading = false;
-        })
-      },
-      countdown: function() {
+            this.myJson.unshift(response.data.data);
+          },
+          error => {
+            this.loading = false;
+          }
+        );
+    },
+    countdown: function() {
       this.remainingCount = this.maxCount - this.post_message.body.length;
       this.hasError = this.remainingCount < 0;
     },
 
-      showMessage: function (message, index) {
+    showMessage: function(message, index) {
+      this.messageModal = message;
 
-        this.messageModal = message;
+      this.loading = true;
+      axios
+        .get(
+          "https://knockonthedoor.vps.codegorilla.nl/api/messages/" +
+            message.id +
+            "/comments",
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("api_token")
+            }
+          }
+        )
 
-       this.loading = true;
-       axios.get("https://knockonthedoor.vps.codegorilla.nl/api/messages/" + message.id + "/comments",
-       {
-         headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-       })
-
-       .then((response)  =>  {
-
-         this.loading = false;
-         this.showModalMsg = true;
-         this.showMsgComments = response.data.data;
-         this.comment = '';
-
-
-
-       }, (error)  =>  {
-         this.loading = false;
-       })
-
+        .then(
+          response => {
+            this.loading = false;
+            this.showModalMsg = true;
+            this.showMsgComments = response.data.data;
+            this.comment = "";
+          },
+          error => {
+            this.loading = false;
+          }
+        );
     },
-    postComment: function (message, comment) {
+    postComment: function(message, comment) {
+      axios
+        .post(
+          "https://knockonthedoor.vps.codegorilla.nl/api/comments",
+          {
+            message_id: message,
+            comment: this.comment
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("api_token")
+            }
+          }
+        )
 
-
-    axios.post("https://knockonthedoor.vps.codegorilla.nl/api/comments",
-      { message_id: message,
-       comment: this.comment},{
-      headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-      })
-
-    .then((response)  =>  {
-
-      this.loading = false;
-      this.showMsgComments.push(response.data.data)
-
-    }, (error)  =>  {
-
-      this.loading = false;
-    })
-  },
+        .then(
+          response => {
+            this.loading = false;
+            this.showMsgComments.push(response.data.data);
+          },
+          error => {
+            this.loading = false;
+          }
+        );
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .list-leave-active {
-position: absolute;
-opacity: 0;
-
+  position: absolute;
+  opacity: 0;
 }
 
 .list-move {
   transition: all 0.5s;
 }
 
-  .wrapper {
+.wrapper {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   max-width: 100%;
   flex-wrap: wrap;
   padding-top: 12px;
 }
-
-
-
-
 </style>

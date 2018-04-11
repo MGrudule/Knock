@@ -20,14 +20,14 @@
 
 <script>
 export default {
-  props: ['search', 'checkedNames', 'myJson', 'searchList', 'categories'],
-  name: 'searchBar',
-  data () {
+  props: ["search", "checkedNames", "myJson", "searchList", "categories"],
+  name: "searchBar",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js '
-    }
+      msg: "Welcome to Your Vue.js "
+    };
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

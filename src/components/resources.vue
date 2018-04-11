@@ -10,7 +10,7 @@
 
     <ul class="toggle-item tags" v-show="toggled"  >
       <span class="skills-title">  {{item.title}} </span>
-      
+
     <li class="tag" v-for="name in item.names" > {{name}} </li>
 
     </ul>
@@ -22,36 +22,30 @@
 </template>
 
 <script>
-
 export default {
-    name: 'Chart',
-    props:["item"],
+  name: "Chart",
+  props: ["item"],
 
-
-    data:function() {
+  data: function() {
     return {
-      toggled: false,
-    }
+      toggled: false
+    };
   },
   methods: {
-  toggleItem: function() {
-
-    this.toggled = true;
-
-  },
-  toggleFalse: function() {
-
-    this.toggled = false;
-
+    toggleItem: function() {
+      this.toggled = true;
+    },
+    toggleFalse: function() {
+      this.toggled = false;
+    }
   }
-
-  }
-}
+};
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;

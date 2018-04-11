@@ -38,41 +38,38 @@
 </template>
 
 <script>
-import mobilemenu from "@/components/mobilemenu.vue"
+import mobilemenu from "@/components/mobilemenu.vue";
 export default {
-
-
-  name: 'App',
-  components: {'mobilemenu': mobilemenu},
+  name: "App",
+  components: { mobilemenu: mobilemenu },
   data() {
     return {
-
-      hasMounted: false,
-
-
-    }
-  },
-
-
-}
-
+      hasMounted: false
+    };
+  }
+};
 </script>
 
 <style>
-  @import './assets/font-awesome.min.css';
-  @font-face{
-    font-family:'FontAwesome';src:url('./assets/fonts/fontawesome-webfont.eot');
-  src:url('./assets/fonts/fontawesome-webfont.eot?#iefix&v=4.6.1') format('embedded-opentype'),
-  url('./assets/fonts/fontawesome-webfont.woff2?v=4.6.1') format('woff2'),
-  url('./assets/fonts/fontawesome-webfont.woff?v=4.6.1') format('woff'),
-  url('./assets/fonts/fontawesome-webfont.ttf?v=4.6.1') format('truetype'),
-  url('./assets/fonts/fontawesome-webfont.svg?v=4.6.1#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}
+@import "./assets/font-awesome.min.css";
+@font-face {
+  font-family: "FontAwesome";
+  src: url("./assets/fonts/fontawesome-webfont.eot");
+  src: url("./assets/fonts/fontawesome-webfont.eot?#iefix&v=4.6.1")
+      format("embedded-opentype"),
+    url("./assets/fonts/fontawesome-webfont.woff2?v=4.6.1") format("woff2"),
+    url("./assets/fonts/fontawesome-webfont.woff?v=4.6.1") format("woff"),
+    url("./assets/fonts/fontawesome-webfont.ttf?v=4.6.1") format("truetype"),
+    url("./assets/fonts/fontawesome-webfont.svg?v=4.6.1#fontawesomeregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
 </style>
 
 
 <style lang="scss" scoped>
-.float-right{
-  float:right;
+.float-right {
+  float: right;
 }
-
 </style>
