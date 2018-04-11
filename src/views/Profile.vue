@@ -93,99 +93,117 @@
 </template>
 
 <script>
-
-import axios from 'axios'
-import chart from "@/components/chart.vue"
-import fileUpload from "@/components/fileUpload.vue"
+import axios from "axios";
+import chart from "@/components/chart.vue";
+import fileUpload from "@/components/fileUpload.vue";
 export default {
-  name: 'Profile',
-  components: { 'chart' : chart , 'file-upload' : fileUpload},
-  data () {
+  name: "Profile",
+  components: { chart: chart, "file-upload": fileUpload },
+  data() {
     return {
       checkedNames: [],
-      name: localStorage.getItem('name'),
-      msg: 'Profile page',
+      name: localStorage.getItem("name"),
+      msg: "Profile page",
       circleData: [],
       loading: false,
       user: [],
       image: "",
       updateMsg: "",
-      categories: [],
-                  }
-                },
-    computed: {
-      colorParts(){
-      return  this.circleData.map(item => item.color)
+      categories: []
+    };
+  },
+  computed: {
+    colorParts() {
+      return this.circleData.map(item => item.color);
     },
-    checkedCategories(){
-      return this.circleData.map(item=> item.id)
+    checkedCategories() {
+      return this.circleData.map(item => item.id);
     }
-    },
-  mounted(){
+  },
+  mounted() {
     this.loading = true;
-  { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile",
     {
-    headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-    })
+      axios
+        .get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("api_token")
+          }
+        })
 
-       .then((response)  =>  {
-         this.loading = false;
-
-         this.user = response.data.data;
-         this.image = "https://knockonthedoor.vps.codegorilla.nl" + response.data.data.image;
-         //this.circleData = this.user.categories.map(item => item.id)
-         this.circleData = this.user.categories
-
-
-
-       }, (error)  =>  {
-         this.loading = false;
-         //if (error.response.status === 401) {
-         this.$router.push(this.$route.query.redirect || '/');
-        // }
-
-       })
-     }
-     { axios.get("https://knockonthedoor.vps.codegorilla.nl/api/categories",
-       {
-       headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-       })
-
-          .then((response)  =>  {
-
-            this.categories = response.data.data;
-
-          }, (error)  =>  {
+        .then(
+          response => {
             this.loading = false;
-          })}},
+
+            this.user = response.data.data;
+            this.image =
+              "https://knockonthedoor.vps.codegorilla.nl" +
+              response.data.data.image;
+            //this.circleData = this.user.categories.map(item => item.id)
+            this.circleData = this.user.categories;
+          },
+          error => {
+            this.loading = false;
+            //if (error.response.status === 401) {
+            this.$router.push(this.$route.query.redirect || "/");
+            // }
+          }
+        );
+    }
+    {
+      axios
+        .get("https://knockonthedoor.vps.codegorilla.nl/api/categories", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("api_token")
+          }
+        })
+
+        .then(
+          response => {
+            this.categories = response.data.data;
+          },
+          error => {
+            this.loading = false;
+          }
+        );
+    }
+  },
 
   methods: {
-    showImage(value){
+    showImage(value) {
       this.image = value;
     },
     updateUser() {
-    this.loading = true;
-      axios.put("https://knockonthedoor.vps.codegorilla.nl/api/profiles/" +this.user.id,
-          {  name: this.user.name,
-             email: this.user.email,
-             summary: this.user.summary,
-             categories: this.checkedCategories,
-             resources: this.user.resources  },
+      this.loading = true;
+      axios
+        .put(
+          "https://knockonthedoor.vps.codegorilla.nl/api/profiles/" +
+            this.user.id,
           {
-              headers: { Authorization: "Bearer " + localStorage.getItem('api_token') }
-        })
+            name: this.user.name,
+            email: this.user.email,
+            summary: this.user.summary,
+            categories: this.checkedCategories,
+            resources: this.user.resources
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("api_token")
+            }
+          }
+        )
 
-        .then((response)  =>  {
-          this.loading = false;
-          this.updateMsg = "Your profile has been updated successfuly!"
-
-        }, (error)  =>  {
-          this.loading = false;
-          this.updateMsg = "Oops, something went wrong - please try again later"
-
-        })
-      }
-
+        .then(
+          response => {
+            this.loading = false;
+            this.updateMsg = "Your profile has been updated successfuly!";
+          },
+          error => {
+            this.loading = false;
+            this.updateMsg =
+              "Oops, something went wrong - please try again later";
+          }
+        );
     }
-}
+  }
+};
 </script>

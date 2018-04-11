@@ -31,7 +31,7 @@
           <span class="tag" v-for="name in item.names" > {{name}} </span>
 
         </div>
-        
+
       </div>
 
       </div>
@@ -41,18 +41,16 @@
 </template>
 
 <script>
-import resources from "./resources.vue"
-import chart from "./chart_sm.vue"
+import resources from "./resources.vue";
+import chart from "./chart_sm.vue";
 export default {
-  props: ['user', 'id', 'index', 'compactLayout'],
-  components: { 'chart' : chart , 'resources' : resources },
-  name: 'profileCompact',
-  data () {
+  props: ["user", "id", "index", "compactLayout"],
+  components: { chart: chart, resources: resources },
+  name: "profileCompact",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js '
-    }
+      msg: "Welcome to Your Vue.js "
+    };
   }
-}
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->

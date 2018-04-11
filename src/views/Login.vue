@@ -22,54 +22,38 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-
-  name: 'Login',
-  data () {
+  name: "Login",
+  data() {
     return {
       errorLogin: false,
-      msg: 'Login page',
-      password: '',
-      email: '',
-
-    }
+      msg: "Login page",
+      password: "",
+      email: ""
+    };
   },
-  methods : {
-    login(){
+  methods: {
+    login() {
+      axios
+        .post("https://knockonthedoor.vps.codegorilla.nl/api/login", {
+          email: this.email,
+          password: this.password
+        })
 
+        .then(response => {
+          localStorage.setItem("api_token", response.data.data.api_token);
+          localStorage.setItem("user_id", response.data.data.id);
+          localStorage.setItem("name", response.data.data.name);
 
-      axios.post('https://knockonthedoor.vps.codegorilla.nl/api/login',
-        {email: this.email,
-         password: this.password})
-
-      .then(response => {
-
-        localStorage.setItem('api_token',response.data.data.api_token);
-        localStorage.setItem('user_id',response.data.data.id);
-        localStorage.setItem('name',response.data.data.name);
-
-        this.$router.push(this.$route.query.redirect || '/feed');
-
-      })
-      .catch(error => {
-
-        if (error.response.status === 422) {
-
-
-        this.errorLogin = true;
-        }
-
-      });
+          this.$router.push(this.$route.query.redirect || "/feed");
+        })
+        .catch(error => {
+          if (error.response.status === 422) {
+            this.errorLogin = true;
+          }
+        });
     }
   }
-}
+};
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="sass" scoped>
-
-
-
-
-</style>
