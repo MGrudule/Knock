@@ -1,19 +1,16 @@
-# knock
+# Knock
 
 > SPA for  resource & skill sharing at shared space communities using Vue.js & Laravel API backend 
 
 * [Live Demo](https://knock.vps.codegorilla.nl/)
 * [Backend Git](https://github.com/RJK-Engineering/KnockOnTheDoor) 
-* [Trello planning](https://trello.com/b/BCwuDQAh) 
 
 
-
-![Screenshot](https://github.com/MGrudule/Knock/blob/master/Documentation/knock.gif)
 
 ##  Setup
 
 Vue.js CLI installation with router & vuex
-
+<img align="left"  src="https://github.com/MGrudule/Knock/blob/master/Documentation/devicepreview.gif">
 ### Working features:
 * login (
   email: t@e.st
