@@ -7,11 +7,12 @@ import Vuex from 'vuex'
 import Sierra from 'sierra-library'
 import InputTag from 'vue-input-tag'
 import VueMq from 'vue-mq'
+import '@/assets/style.css'
 
 Vue.config.productionTip = false
 Vue.use(VueMq, {
   breakpoints: {
-    
+
     tablet: 768,
     md: 1250,
     lg: Infinity,
@@ -32,10 +33,10 @@ const state = {
 
 // This is look like events.
 const mutations = {
-  SHOWNAV (state) {
+  SHOWNAV(state) {
     state.navigation.show = true
   },
-  HIDENAV (state) {
+  HIDENAV(state) {
     state.navigation.show = false
   }
 };
@@ -50,23 +51,25 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>',
   watch: {
-             $route: function() {
+    $route: function() {
 
-              // Check if given route is true, if it is then hide Nav.
-              if (this.$route.path === "/") {
+      // Check if given route is true, if it is then hide Nav.
+      if (this.$route.path === "/") {
 
-                  store.commit('HIDENAV');
-                } else  {
-                  store.commit('SHOWNAV');
-              }
-              }
-            },
-            computed: {
-              show () {
-                  return store.state.navigation.show
-              }
-             }
-             })
+        store.commit('HIDENAV');
+      } else {
+        store.commit('SHOWNAV');
+      }
+    }
+  },
+  computed: {
+    show() {
+      return store.state.navigation.show
+    }
+  }
+})

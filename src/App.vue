@@ -1,5 +1,5 @@
 <style lang="scss">
-@import '../src/assets/style.css';
+// @import '../src/assets/style.css';
 @import "./assets/font-awesome.min.css";
 @font-face {
   font-family: "FontAwesome";
