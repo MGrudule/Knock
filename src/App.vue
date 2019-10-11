@@ -37,7 +37,7 @@
 
       </div>
       <div class="col-sm-2 aligner-space-around">
-        <img v-if="$store.state.navigation.show " src="/static/img/logo.svg" height="50"/>
+        <img v-if="$store.state.navigation.show " :src="logo" height="50"/>
         <img v-else src="/static/img/logo.svg" />
       </div>
       <div class="col-sm-5">
@@ -62,7 +62,9 @@ export default {
   components: { mobilemenu: mobilemenu },
   data() {
     return {
-      hasMounted: false
+      hasMounted: false,
+      logo: require('@/assets/logo.svg'),
+
     };
   }
 };

@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
 
-      <img src="/static/img/logo.svg" height="50"/>
+      <img :href="logo" height="50"/>
 
       <ul >
           <router-link v-show="$store.state.navigation.show " tag="li" class="button block-mobile" to="/people">People</router-link>
@@ -15,6 +15,15 @@
 
 <script>
 export default {
-  name: 'mobilemenu',
+components:{
+  mobilemenu: 'mobilemenu'
+},
+
+data() {
+  return {
+  logo: require('@/assets/logo.svg')
+
+}
+}
 }
 </script>
