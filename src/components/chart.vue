@@ -17,7 +17,7 @@
             </defs>
 
             <image   class="rounded"
-                  :href="image" filter="url(#linear)"
+                  :href="image.sample" filter="url(#linear)"
                   x="33%" y="15%"
                   width="32%" height="70%"  preserveAspectRatio="xMinYMid slice"
                    />
@@ -39,7 +39,7 @@
 <script>
 export default {
   name: "Chart",
-  props: ["data", "colorParts", "image"],
+  props: ["data", "colorParts"],
   imageData: [],
 
   mounted() {
@@ -51,7 +51,10 @@ export default {
     return {
       circles: this.data.length,
       circleLength: 371.9451599121094,
-      hasMounted: false
+      hasMounted: false,
+      image: {
+                  sample: require('@/assets/profile.png')
+              },
     };
   },
   computed: {
@@ -62,7 +65,7 @@ export default {
       return this.valueParts.reduce((previous, current) => previous + current);
     },
     dataObjects() {
-      let startingPoint = 0;
+      let startingPoint = 0.01;
       return this.valueParts.map(item => {
         let relativeSize = item / this.dataTotal * this.circleLength;
         let dataObject = {

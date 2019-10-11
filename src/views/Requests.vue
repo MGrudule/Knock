@@ -16,9 +16,9 @@
       </div>
     </div>
       <div  v-for="(category, index) in categories" :key="category.id" class="col-md-2" >
-        <div class="radio" :style="'color:'+category.color" >
+        <div class="radio"  >
           <input type="radio" :id="category.id" :value="category.name" v-model="selectedCategories" >
-          <label :style="'background:'+category.color" v-bind:for="category.id" > {{category.name}} </label>
+          <label :style="'background:'+category.color" v-bind:for="category.id" > {{category.name}}  </label>
         </div>
       </div>
 
@@ -153,10 +153,11 @@
 
 <script>
 import axios from "axios";
+import json from '../feed.json'
 import message from "@/components/message.vue";
 import modal from "@/components/modal.vue";
 export default {
-  name: "Feed",
+  name: "Requests",
   components: { message: message, modal: modal },
   data() {
     return {
@@ -170,10 +171,30 @@ export default {
       posts: [],
       msg: "Post Feed",
       loading: false,
-      myJson: [],
+      myJson: json,
       showModal: false,
       hasError: false,
-      categories: [],
+      categories: [  {
+            id:1,
+            name:"Art",
+            color:"#aebd38"
+         },
+         {
+            id:2,
+            name:"Music",
+            color:"#38aebd"
+         },
+         {
+            id:3,
+            name:"Business",
+            color:"#bd38ae"
+         },
+         {
+            id:4,
+            name:"ICT",
+            color:"#ffee4c"
+         }],
+
       selectedCategories: "",
       categories_checkbox: "",
       categoriesSelected: [],
@@ -195,7 +216,7 @@ export default {
     },
     filteredList() {
       return this.myJson.filter(object => {
-        return object.categories.some(item => {
+        return object.category.some(item => {
           return item.name
             .toLowerCase()
             .includes(this.selectedCategories.toLowerCase());
@@ -204,47 +225,7 @@ export default {
     }
   },
   mounted() {
-    this.loading = true;
-    {
-      axios
-        .get("https://knockonthedoor.vps.codegorilla.nl/api/messages", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api_token")
-          }
-        })
 
-        .then(
-          response => {
-            this.loading = false;
-            this.myJson = response.data.data;
-          },
-          error => {
-            this.loading = false;
-            //if (error.response.status === 401) {
-
-            this.$router.push(this.$route.query.redirect || "/");
-            //}
-          }
-        );
-    }
-    {
-      axios
-        .get("https://knockonthedoor.vps.codegorilla.nl/api/categories", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api_token")
-          }
-        })
-
-        .then(
-          response => {
-            this.categories = response.data.data;
-            this.categories_checkbox = response.data.data;
-          },
-          error => {
-            this.loading = false;
-          }
-        );
-    }
   },
 
   methods: {
@@ -252,7 +233,7 @@ export default {
       this.loading = true;
       axios
         .post(
-          "https://knockonthedoor.vps.codegorilla.nl/api/messages",
+          "url",
           {
             body: post_message.body,
             subject_id: post_message.subject,
@@ -292,7 +273,7 @@ export default {
       this.loading = true;
       axios
         .get(
-          "https://knockonthedoor.vps.codegorilla.nl/api/messages/" +
+          "url" +
             message.id +
             "/comments",
           {
@@ -317,7 +298,7 @@ export default {
     postComment: function(message, comment) {
       axios
         .post(
-          "https://knockonthedoor.vps.codegorilla.nl/api/comments",
+          "url",
           {
             message_id: message,
             comment: this.comment

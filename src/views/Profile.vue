@@ -109,7 +109,26 @@ export default {
       user: [],
       image: "",
       updateMsg: "",
-      categories: []
+      categories: [  {
+            id:1,
+            name:"Art",
+            color:"#aebd38"
+         },
+         {
+            id:2,
+            name:"Music",
+            color:"#38aebd"
+         },
+         {
+            id:3,
+            name:"Business",
+            color:"#bd38ae"
+         },
+         {
+            id:4,
+            name:"ICT",
+            color:"#ffee4c"
+         }],
     };
   },
   computed: {
@@ -122,50 +141,9 @@ export default {
   },
   mounted() {
     this.loading = true;
-    {
-      axios
-        .get("https://knockonthedoor.vps.codegorilla.nl/api/current_profile", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api_token")
-          }
-        })
 
-        .then(
-          response => {
-            this.loading = false;
 
-            this.user = response.data.data;
-            this.image =
-              "https://knockonthedoor.vps.codegorilla.nl" +
-              response.data.data.image;
-            //this.circleData = this.user.categories.map(item => item.id)
-            this.circleData = this.user.categories;
-          },
-          error => {
-            this.loading = false;
-            //if (error.response.status === 401) {
-            this.$router.push(this.$route.query.redirect || "/");
-            // }
-          }
-        );
-    }
-    {
-      axios
-        .get("https://knockonthedoor.vps.codegorilla.nl/api/categories", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api_token")
-          }
-        })
 
-        .then(
-          response => {
-            this.categories = response.data.data;
-          },
-          error => {
-            this.loading = false;
-          }
-        );
-    }
   },
 
   methods: {
@@ -176,7 +154,7 @@ export default {
       this.loading = true;
       axios
         .put(
-          "https://knockonthedoor.vps.codegorilla.nl/api/profiles/" +
+          "url" +
             this.user.id,
           {
             name: this.user.name,

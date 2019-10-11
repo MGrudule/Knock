@@ -16,7 +16,7 @@
               </defs>
 
                 <image  ref="myImage" :id="'myImage' + id" class="hei"
-                      :href="image" :filter="'url(#linear'+id +')'"
+                      :href="image.sample" :filter="'url(#linear'+id +')'"
                         x="33%" y="15%"
                         width="32%" height="70%" preserveAspectRatio="xMinYMid slice" />
 
@@ -44,7 +44,7 @@
 <script>
 export default {
   name: "Chart",
-  props: ["data", "colorParts", "nameParts", "circleParts", "id", "image"],
+  props: ["data", "colorParts", "nameParts", "circleParts", "id"],
 
   mounted() {
     this.hasMounted = true;
@@ -52,7 +52,10 @@ export default {
   data() {
     return {
       circleLength: 371.9451599121094,
-      hasMounted: false
+      hasMounted: false,
+      image: {
+                  sample: require('@/assets/profile.png')
+              },
     };
   },
   computed: {
@@ -60,7 +63,7 @@ export default {
       return this.data.map(item => (item = 1));
     },
     dataObjects() {
-      let startingPoint = 0;
+      let startingPoint = 0.01;
       return this.data.map(item => {
         let relativeSize = item / this.data.length * this.circleLength;
         let dataObject = {

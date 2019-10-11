@@ -35,24 +35,11 @@ export default {
   },
   methods: {
     login() {
-      axios
-        .post("https://knockonthedoor.vps.codegorilla.nl/api/login", {
-          email: this.email,
-          password: this.password
-        })
+      localStorage.setItem("api_token", 'random');
+      localStorage.setItem("user_id", '1');
+      localStorage.setItem("name", 'Test User');
 
-        .then(response => {
-          localStorage.setItem("api_token", response.data.data.api_token);
-          localStorage.setItem("user_id", response.data.data.id);
-          localStorage.setItem("name", response.data.data.name);
-
-          this.$router.push(this.$route.query.redirect || "/feed");
-        })
-        .catch(error => {
-          if (error.response.status === 422) {
-            this.errorLogin = true;
-          }
-        });
+      this.$router.push(this.$route.query.redirect || "/people");
     }
   }
 };

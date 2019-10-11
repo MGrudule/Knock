@@ -70,10 +70,29 @@ export default {
       msg: "People",
       loading: false,
       compactLayout: true,
-      myJson: [],
-      categories: [],
+      myJson: json,
       checkedNames: "",
-      search: ""
+      search: "",
+      categories: [  {
+            id:1,
+            name:"Art",
+            color:"#aebd38"
+         },
+         {
+            id:2,
+            name:"Music",
+            color:"#38aebd"
+         },
+         {
+            id:3,
+            name:"Business",
+            color:"#bd38ae"
+         },
+         {
+            id:4,
+            name:"ICT",
+            color:"#ffee4c"
+         }],
     };
   },
 
@@ -83,7 +102,7 @@ export default {
         return (
           user.name.toLowerCase().includes(this.search.toLowerCase()) ||
           user.resources.some(item => {
-            return item.names.some(name => {
+            return item.name.some(name => {
               return name.toLowerCase().includes(this.search.toLowerCase());
             });
           })
@@ -91,58 +110,18 @@ export default {
       });
     },
     filteredList() {
+      if(!this.checkedNames.length)
+      return this.myJson
       return this.myJson.filter(user => {
-        return user.categories.some(item => {
+        return user.category.some(item => {
           return item.name
             .toLowerCase()
             .includes(this.checkedNames.toLowerCase());
         });
       });
     }
-  },
-  mounted() {
-    {
-      this.loading = true;
-      axios
-        .get("https://knockonthedoor.vps.codegorilla.nl/api/profiles", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api_token")
-          }
-        })
-
-        .then(
-          response => {
-            this.loading = false;
-            this.myJson = response.data.data;
-          },
-          error => {
-            this.loading = false;
-            //if (error.response.status === 401) {
-            this.$router.push(this.$route.query.redirect || "/");
-            //}
-          }
-        );
-    }
-
-    {
-      axios
-        .get("https://knockonthedoor.vps.codegorilla.nl/api/categories", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api_token")
-          }
-        })
-
-        .then(
-          response => {
-            this.categories = response.data.data;
-          },
-          error => {
-            this.loading = false;
-          }
-        );
-    }
   }
-};
+}
 </script>
 
 

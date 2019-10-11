@@ -50,7 +50,7 @@ export default {
       formData.append("file", value);
       axios
         .post(
-          "https://knockonthedoor.vps.codegorilla.nl/api/profile/image",
+          "url",
           formData,
           {
             headers: {

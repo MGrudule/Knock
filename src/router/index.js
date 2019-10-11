@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import {Login, Logout, People, Circles, Feed, Events, Profile } from '@/views'
+import {
+  Login,
+  Logout,
+  People,
+  Circles,
+  Requests,
+  Events,
+  Profile
+} from '@/views'
 
 Vue.use(Router)
 
 export default new Router({
-   mode: 'history',
-  routes: [
-    {
+  mode: 'history',
+  routes: [{
       path: '/',
       name: 'Login',
       component: Login,
@@ -31,9 +38,9 @@ export default new Router({
       component: Circles
     },
     {
-      path: '/feed',
-      name: 'Feed',
-      component: Feed
+      path: '/requests',
+      name: 'Requests',
+      component: Requests
     },
     {
       path: '/events',

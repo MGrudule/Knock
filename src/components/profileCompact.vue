@@ -1,8 +1,8 @@
 
 <template>
   <div  v-bind:class="{ 'row': !compactLayout }">
-<div v-bind:class="{ 'col-md-5 col-sm-4 ': !compactLayout }">
-    <chart v-bind:id="user.id"  v-bind:data="user.categories.map(item => 1)" v-bind:image="'https://knockonthedoor.vps.codegorilla.nl' + user.image"  v-bind:colorParts="user.categories.map(item => item.color)" v-bind:nameParts="user.categories.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
+<div v-bind:class="{ 'col-md-4 col-sm-4 ': !compactLayout }">
+    <chart v-bind:id="user.id"  v-bind:data="user.category.map(item => 1)" v-bind:image='"assets/profile.png"'  v-bind:colorParts="user.category.map(item => item.color)" v-bind:nameParts="user.category.map(item => item.name)" v-bind:circleParts="user.circle.name"> </chart>
         <div  v-if="compactLayout" class="text-center"  style="min-height:6em">
 
         <span class="user-name" > {{user.name}} </span>
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-      <div v-bind:class="{ 'col-md-7, col-sm-6': !compactLayout }">
+      <div v-bind:class="{ 'col-md-7, col-sm-8': !compactLayout }">
         <div v-if="!compactLayout">
           <span class="user-name" > {{user.name}} </span>
           <span > {{user.summary}} </span>  <br>
@@ -20,15 +20,16 @@
 
         </div>
 
-        <div class="row aligner-space-around ">
-      <div v-for="item in user.resources" :key="item.id"  class="col-md-3" v-if="item.names.length !== 0" >
+        <div class="row" v-bind:class="{ ' aligner-space-around ': compactLayout }">
+      <div v-for="item in user.resources" :key="item.id"  v-bind:class="{ 'col-md-3': compactLayout }" v-if="item.name.length !== 0" >
 
 
 
         <resources v-if="compactLayout" :item="item"></resources>
-        <div v-else>
+        <div  v-if="!compactLayout" class="skill-row">
         <span class="skills-title">  {{item.title}} </span>
-          <span class="tag" v-for="name in item.names" > {{name}} </span>
+
+          <span class="tag" v-for="name in item.name" > {{name}} </span>
 
         </div>
 
@@ -54,3 +55,17 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.aligner-space-around {
+  .col-md-3 {
+    padding:0;
+    position: unset;
+
+  }
+
+}
+.skill-row{
+  margin-bottom:1rem;
+}
+</style>
