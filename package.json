@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "ajv": "^6.2.1",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "chart.js": "^2.7.2",
     "html-minifier": "^3.5.12",
     "moment": "^2.21.0",
