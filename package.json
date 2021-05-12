@@ -12,7 +12,7 @@
   "dependencies": {
     "ajv": "^6.2.1",
     "axios": "^0.18.1",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "html-minifier": "^3.5.12",
     "moment": "^2.21.0",
     "style-loader": "^1.0.0",
